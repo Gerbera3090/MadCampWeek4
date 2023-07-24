@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 moveInput;
     TouchingDirections  touchingDirections;
+    Damageable damageable;
 
     Rigidbody2D rb;
     Animator animator;
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
+        damageable = GetComponent<Damageable>();
     }
 
     // Start is called before the first frame update
@@ -84,7 +86,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 항상 moveInput 대로 캐릭터가 이동
+        // if(!damageable.IsHit) {
+        //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
+        // }
+
+        rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
     }
 
 
@@ -123,6 +129,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnHit(int damage, Vector2 knockback) {
-        
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 }

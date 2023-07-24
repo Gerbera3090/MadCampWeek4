@@ -54,6 +54,7 @@ public class Damageable : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    // update every frame
     private void Update() {
         if(isInvincible) {
             if(timeSinceHit > invincibilityTime) {
@@ -65,11 +66,15 @@ public class Damageable : MonoBehaviour
     }
     
 
-    public void Hit(int damage, Vector2 knockback) {
+    public bool Hit(int damage, Vector2 knockback) {
         if(IsAlive && !isInvincible) {
             Health -= damage;
-
+            animator.SetTrigger(AnimationStrings.hitTrigger);
+            Debug.Log("recieved damage of"+ damage);
             damageableHit?.Invoke(damage, knockback); // damageable hit라는 unityevent를 발동
-        }
+            return true;
+        } else {
+            return false;
+        }   
     }
 }
