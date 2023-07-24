@@ -18,4 +18,8 @@ internal class AnimationStrings {
 
   internal static string isAlive = "isAlive";
   internal static string hitTrigger = "hitTrigger";
+
+  internal static string lockVelocity = "lockVelocity";
+
+  internal static string isDashing = "isDashing";
 }
