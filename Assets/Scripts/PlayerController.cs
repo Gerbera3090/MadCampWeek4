@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IController
 {
     public float walkspeed = 5f;
     public float jumpImpulse = 10f;
@@ -32,10 +32,8 @@ public class PlayerController : MonoBehaviour
     private bool _isMoving = false;
 
     public bool IsMoving { 
-        get {
-            return _isMoving;
-        }
-        private set {
+        get => _isMoving;
+        set {
             _isMoving = value; // private ismoving 값대로 animator의 변수 설정
             animator.SetBool(AnimationStrings.isMoving, value);
         } 
@@ -44,10 +42,8 @@ public class PlayerController : MonoBehaviour
     private bool _isFacingRight = true;
 
     public bool IsFacingRight {
-        get {
-            return _isFacingRight;
-        }
-        private set {
+        get => _isFacingRight;
+        set {
             if (_isFacingRight != value) {
                 transform.localScale *= new Vector2(-1, 1);
             }
@@ -55,16 +51,15 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+
     public bool CanMove {
-        get {
-            return animator.GetBool(AnimationStrings.canMove);
-        }
+        get => animator.GetBool(AnimationStrings.canMove);
+        set => animator.SetBool(AnimationStrings.canMove, value);
     }
 
     public bool IsAlive {
-        get {
-            return animator.GetBool(AnimationStrings.isAlive);
-        }
+        get => animator.GetBool(AnimationStrings.isAlive);
+        set => animator.SetBool(AnimationStrings.isAlive, value);
     }
 
     // 컴포낸트 가져오기
@@ -73,33 +68,19 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
+        CanMove = true;
     }
-
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
+    
     private void FixedUpdate() {
-        // if(!damageable.IsHit) {
-        //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
-        // }
-
-        rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+        if(CanMove) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
     }
 
 
     public void OnMove(InputAction.CallbackContext context) {
         moveInput = context.ReadValue<Vector2>(); // 방향키의 '값'을 읽어서 moveInput에 저장
-
         if(IsAlive) {
             IsMoving = moveInput != Vector2.zero;
-
+            //Debug.Log("INPUT : "+moveInput);
             SetFacingDirection(moveInput);  
         } else {
             IsMoving = false;
@@ -123,12 +104,29 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context) {
         if(context.started) {
-            Debug.Log("attack input");
+            //Debug.Log("attack input");
             animator.SetTrigger(AnimationStrings.attack);
         }
     }
 
-    public void OnHit(int damage, Vector2 knockback) {
-        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+    public void Dead()
+    {
+        //게임 오버 화면 넘어가기
+        gameObject.SetActive(false);
     }
+
+    public void CallKnockBack(Vector2 knockBackForceVector, float knockTime)
+    {
+        rb.AddForce(knockBackForceVector);
+        StartCoroutine(KnockTimeRoutine(knockTime));
+    }
+
+    public IEnumerator KnockTimeRoutine(float knockTime)
+    {
+        CanMove = false;
+        yield return new WaitForSeconds(knockTime);
+        CanMove = true;
+    }
+
+
 }

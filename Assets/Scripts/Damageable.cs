@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,24 +8,28 @@ using UnityEngine.Events;
 public class Damageable : MonoBehaviour
 {
     public UnityEvent<int, Vector2> damageableHit;
-
+    public bool isPlayer;
     Animator animator;
-
+    private IController controller;
     [SerializeField]
-    private int _maxHealth = 100;
+    private float _maxHealth = 100f;
 
-    public int MaxHealth {
+    public float MaxHealth {
         get { return _maxHealth;}
-        private set { _maxHealth = value; }
+        private set
+        {
+            _maxHealth = value;
+        }
     }
-
+    
     [SerializeField]
-    private int _health = 100;
+    private float _health = 100f;
 
-    public int Health {
+    public float Health {
         get { return _health;}
-        private set { 
-            _health = value;
+        private set
+        {
+            _health = Mathf.Max(0, Mathf.Min(_maxHealth, value));
             if(_health <= 0) { // 죽은거로 처리
                 IsAlive = false;
             }
@@ -52,6 +57,7 @@ public class Damageable : MonoBehaviour
     // component 가져오기
     private void Awake() {
         animator = GetComponent<Animator>();
+        controller = GetComponent<IController>();
     }
 
     // update every frame
@@ -65,16 +71,26 @@ public class Damageable : MonoBehaviour
         }
     }
     
-
-    public bool Hit(int damage, Vector2 knockback) {
-        if(IsAlive && !isInvincible) {
-            Health -= damage;
-            animator.SetTrigger(AnimationStrings.hitTrigger);
-            Debug.Log("recieved damage of"+ damage);
-            damageableHit?.Invoke(damage, knockback); // damageable hit라는 unityevent를 발동
-            return true;
-        } else {
-            return false;
-        }   
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isInvincible) return;
+        if (!other.gameObject.CompareTag("Attack")) return;
+           
+        var attack = other.gameObject.GetComponent<Attack>();
+        float damage = attack.attackDamage;
+        Vector2 knockBack = attack.knockBack;
+        string attackType = attack.attackType;
+        // attackType에 따라서 데미지 계산
+        
+        // 체력 감소
+        Health -= damage;
+        // 피격 모션 및 소리, 넉백 코루틴으로 출력
+        animator.SetTrigger(AnimationStrings.hitTrigger);
+        controller.CallKnockBack(attack.knockBack, attack.knockTime);
+        // 
+        Debug.Log("received damage of"+ damage);
+        Debug.Log("Remained HP : " + Health);
     }
+    
+    
 }
