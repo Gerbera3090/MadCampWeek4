@@ -223,7 +223,19 @@ MonoBehaviour:
     m_ActionId: 21ac5cff-78c7-4fb6-afe0-b1f571751c13
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7459844786181619156}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRoll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6faac088-8ea1-4e35-b98f-96b8dd770f90
     m_ActionName: Player/Roll[/Keyboard/r]
   - m_PersistentCalls:
@@ -281,7 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkspeed: 5
-  jumpImpulse: 10
+  jumpImpulse: 7
+  rollImpulse: 10
 --- !u!70 &3513747063931293412
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -644,7 +657,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5416843, y: -1.6944394}
+  m_Offset: {x: 0.5416844, y: -1.3841803}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -655,5 +668,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.500293, y: 1.4866018}
+  m_Size: {x: 4.500293, y: 2.10712}
   m_EdgeRadius: 0

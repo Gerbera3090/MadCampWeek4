@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public float walkspeed = 5f;
     public float jumpImpulse = 10f;
+    public float rollImpulse = 10f;
 
     Vector2 moveInput;
     TouchingDirections  touchingDirections;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool _isFacingRight = true;
+    private Vector2 faceDirectionVector = Vector2.right;
 
     public bool IsFacingRight {
         get {
@@ -52,6 +54,8 @@ public class PlayerController : MonoBehaviour
                 transform.localScale *= new Vector2(-1, 1);
             }
             _isFacingRight = value;
+
+            faceDirectionVector = IsFacingRight? Vector2.right: Vector2.left;
         } 
     }
 
@@ -130,5 +134,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockback) {
         rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+    }
+
+    public void OnRoll(InputAction.CallbackContext context) {
+        if(context.started && touchingDirections.IsGrounded) {
+            animator.SetTrigger(AnimationStrings.roll);
+            rb.velocity = new Vector2(faceDirectionVector.x * rollImpulse, rb.velocity.y);
+        }
     }
 }

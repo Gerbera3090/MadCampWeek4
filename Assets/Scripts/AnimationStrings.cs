@@ -10,6 +10,8 @@ internal class AnimationStrings {
 
   internal static string jump = "jumpTrigger";
   internal static string attack = "attackTrigger";
+  internal static string roll = "rollTrigger";
+
   internal static string canMove = "canMove";
 
   internal static string hasTarget = "hasTarget";
