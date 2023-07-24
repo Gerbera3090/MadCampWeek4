@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Code/CameraFollow.cs.meta
+guid: f110a7eca388af8419609c7a0295ef55
+========
+guid: cb2afa9bb80a3ac4783395d0a4507d26
+>>>>>>>> e2d5e4ee9c7fa88ad265fdedded4f48530a65eac:Assets/Attack.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
