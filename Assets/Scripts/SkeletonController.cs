@@ -11,6 +11,8 @@ public class SkeletonController : MonoBehaviour
     TouchingDirections touchingDirections; 
     public AttackZone attackZone;
 
+    Damageable damageable;
+
     public float walkStopRate = 0.6f;
 
     public bool canMove {
@@ -62,11 +64,13 @@ public class SkeletonController : MonoBehaviour
         }
     }
 
+
     // 컴포낸트 가져오기
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
+        damageable = GetComponent<Damageable>();
     }
 
     // Start is called before the first frame update
@@ -100,5 +104,9 @@ public class SkeletonController : MonoBehaviour
         } else if (walkDirection == WalkableDirection.Right) {
             walkDirection = WalkableDirection.Left;
         } 
+    }
+
+    public void OnHit(int damage, Vector2 knockback) {
+        //rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 }
