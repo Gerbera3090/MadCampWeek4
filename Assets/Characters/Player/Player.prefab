@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7459844786181619156}
   - component: {fileID: 3513747063931293412}
   - component: {fileID: 3740663137821210298}
+  - component: {fileID: 4813345351114971880}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -163,7 +164,19 @@ MonoBehaviour:
     m_ActionId: a184c7ee-433a-422d-91b8-88f2f362a2ae
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7459844786181619156}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 66b51647-0702-4c6b-afc3-c7c06ebba2a6
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -298,8 +311,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.30080467, y: -1.424362}
-  m_Size: {x: 0.8487197, y: 2.0427022}
+  m_Offset: {x: -0.29360563, y: -1.3019779}
+  m_Size: {x: 1.4966356, y: 2.2874703}
   m_Direction: 0
 --- !u!114 &3740663137821210298
 MonoBehaviour:
@@ -315,17 +328,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castFilter:
     useTriggers: 0
-    useLayerMask: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 64
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
   groundDistance: 0.05
+  wallDistance: 0.05
+  ceilingDistance: 0.2
   _isGrounded: 1
+  _isOnWall: 1
+  _isOnCeiling: 1
+--- !u!114 &4813345351114971880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508854132398846852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a74cc3c41a3114ca29578fe95317ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _health: 100
+  _isAlive: 1
+  isInvincible: 0
+  invincibilityTime: 0.25
