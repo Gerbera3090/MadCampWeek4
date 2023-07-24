@@ -24,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
         return _attackType;
     }
 
-    public int GetDamage()
+    public float GetDamage()
     {
         return _damage;
     }

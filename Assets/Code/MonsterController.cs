@@ -15,7 +15,7 @@ public class MonsterController : MonoBehaviour
     public float speed;
     public float trackSpeed;
 
-    private WaitForSeconds basicMovingTime = new WaitForSeconds(5f);
+    private WaitForSeconds basicMovingTime = new WaitForSeconds(2f);
     private Rigidbody2D rigid;
     private Collider2D collider2D;
     private Scanner scanner;
@@ -39,7 +39,7 @@ public class MonsterController : MonoBehaviour
         hp = maxHp;
     }
 
-    public void OnCollisionEnter(Collision other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Attack")) return;
 
@@ -54,6 +54,7 @@ public class MonsterController : MonoBehaviour
         
         // 
         
+        Debug.Log(hp);
     }
 
     public void FixedUpdate()
@@ -72,16 +73,18 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
-                rigid.velocity = isFacingPositive ? Vector2.right : Vector2.left ;
-                rigid.velocity *= speed;
-                if(printLog)Debug.Log(rigid.velocity);
+                Vector2 tmpVector   = isFacingPositive ? Vector2.right : Vector2.left ;
+                tmpVector *= speed;
+                tmpVector.y = rigid.velocity.y;
+                rigid.velocity = tmpVector;
+                //if(printLog)Debug.Log(rigid.velocity);
             }
         }
         else
         {
             rigid.velocity *= trackSpeed;
         }
-        spriter.flipX = rigid.velocity.x < 0;
+        spriter.flipX = rigid.velocity.x > 0;
     }
 
     IEnumerator BasicMovingRoutine()
@@ -96,13 +99,12 @@ public class MonsterController : MonoBehaviour
         
         if(printLog)Debug.Log("Move End");
         rigid.velocity = Vector2.zero;
-        yield return new WaitForSeconds(5f);
         isBasicMoving = false;
     }
     
     private void HpChange(float delta)
     {
-        hp = Mathf.Max(0, Mathf.Min(maxHp, hp - delta));
+        hp = Mathf.Max(0, Mathf.Min(maxHp, hp + delta));
         CheckLive();
     }
 
@@ -111,9 +113,15 @@ public class MonsterController : MonoBehaviour
         if (hp <= 0.0000001f)
         {
             isLive = false;
+            Dead();
         }
-    } 
-    
+    }
+
+    void Dead()
+    {
+        isLive = false;
+        gameObject.SetActive(false);
+    }
     
 }
 
