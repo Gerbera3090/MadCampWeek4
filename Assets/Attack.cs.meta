@@ -1,5 +1,14 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Code/CameraFollow.cs.meta
+guid: 2facba1df24208e4294a701fd7a46f25
+=======
+<<<<<<<< HEAD:Assets/AttackZone.cs.meta
+guid: 150174dccd7ad214596030e8c97f487b
+>>>>>>> e2d5e4ee9c7fa88ad265fdedded4f48530a65eac
+========
 guid: cb2afa9bb80a3ac4783395d0a4507d26
+>>>>>>>> e2d5e4ee9c7fa88ad265fdedded4f48530a65eac:Assets/Attack.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
