@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// bottom, ceiling, wall에 붙어있는지 감지하는 class
 public class TouchingDirections : MonoBehaviour
 {
     public ContactFilter2D castFilter;

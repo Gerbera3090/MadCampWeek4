@@ -16,11 +16,15 @@ public class PlayerController : MonoBehaviour
 
     public float CurrentSpeed {
         get {
-            if(IsMoving && !touchingDirections.IsOnWall) {
-                return walkspeed;
-            } else  {
+            if (CanMove) {
+                if(IsMoving && !touchingDirections.IsOnWall) {
+                    return walkspeed;
+                } else  {
+                    return 0;
+                }
+            } else {
                 return 0;
-            }
+            }      
         }
     }
 
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour
         }
         private set {
             _isMoving = value; // private ismoving 값대로 animator의 변수 설정
-            animator.SetBool("isMoving", value);
+            animator.SetBool(AnimationStrings.isMoving, value);
         } 
     }
 
@@ -48,6 +52,18 @@ public class PlayerController : MonoBehaviour
             }
             _isFacingRight = value;
         } 
+    }
+
+    public bool CanMove {
+        get {
+            return animator.GetBool(AnimationStrings.canMove);
+        }
+    }
+
+    public bool IsAlive {
+        get {
+            return animator.GetBool(AnimationStrings.isAlive);
+        }
     }
 
     // 컴포낸트 가져오기
@@ -75,9 +91,13 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) {
         moveInput = context.ReadValue<Vector2>(); // 방향키의 '값'을 읽어서 moveInput에 저장
 
-        IsMoving = moveInput != Vector2.zero;
+        if(IsAlive) {
+            IsMoving = moveInput != Vector2.zero;
 
-        SetFacingDirection(moveInput);
+            SetFacingDirection(moveInput);  
+        } else {
+            IsMoving = false;
+        }
     } 
 
     private void SetFacingDirection(Vector2 moveInput) {
@@ -95,5 +115,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnAttack(InputAction.CallbackContext context) {
+        if(context.started) {
+            Debug.Log("attack input");
+            animator.SetTrigger(AnimationStrings.attack);
+        }
+    }
 
+    public void OnHit(int damage, Vector2 knockback) {
+        
+    }
 }
