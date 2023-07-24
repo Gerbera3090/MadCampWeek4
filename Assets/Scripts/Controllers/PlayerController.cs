@@ -7,6 +7,21 @@ public class PlayerController : MonoBehaviour
 {
     public float walkspeed = 5f;
     public float jumpImpulse = 10f;
+    public float rollImpulse = 10f;
+
+    public bool canDash = true;
+
+    private bool _isDashing = false;
+    public bool IsDashing {
+        get { return _isDashing; }
+        private set {
+            _isDashing = value;
+            animator.SetBool(AnimationStrings.isDashing, value);
+        }
+    }
+    public float dashImpulse = 24f;
+    public float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
 
     Vector2 moveInput;
     TouchingDirections  touchingDirections;
@@ -14,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb;
     Animator animator;
+    TrailRenderer tr;
 
     public float CurrentSpeed {
         get {
@@ -42,6 +58,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool _isFacingRight = true;
+    private Vector2 faceDirectionVector = Vector2.right;
 
     public bool IsFacingRight {
         get {
@@ -52,6 +69,8 @@ public class PlayerController : MonoBehaviour
                 transform.localScale *= new Vector2(-1, 1);
             }
             _isFacingRight = value;
+
+            faceDirectionVector = IsFacingRight? Vector2.right: Vector2.left;
         } 
     }
 
@@ -67,12 +86,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool _lockVelocity = false;
+
+    public bool LockVelocity {
+        get { return _lockVelocity; }
+        private set {
+            _lockVelocity = value;
+            animator.SetBool(AnimationStrings.lockVelocity, value);
+        }
+    }
+
     // 컴포낸트 가져오기
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
+        tr = GetComponent<TrailRenderer>();
     }
 
     // Start is called before the first frame update
@@ -90,7 +120,9 @@ public class PlayerController : MonoBehaviour
         //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
         // }
 
-        rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+        if(!LockVelocity) {
+            rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+        }
     }
 
 
@@ -123,12 +155,47 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context) {
         if(context.started) {
-            Debug.Log("attack input");
             animator.SetTrigger(AnimationStrings.attack);
         }
     }
 
     public void OnHit(int damage, Vector2 knockback) {
         rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+    }
+
+    public void OnRoll(InputAction.CallbackContext context) {
+        if(context.started && touchingDirections.IsGrounded) {
+            animator.SetTrigger(AnimationStrings.roll);
+            rb.velocity = new Vector2(faceDirectionVector.x * rollImpulse, rb.velocity.y);
+        }
+    }
+
+    public void OnDash(InputAction.CallbackContext context) {
+        if(context.started) {
+            StartCoroutine(Dash());
+        }
+    }
+
+    private IEnumerator Dash() {
+        canDash = false;
+        IsDashing = true;
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+
+        LockVelocity = true;
+
+        Debug.Log("Dash coroutine started");
+
+        rb.velocity = new Vector2(transform.localScale.x * dashImpulse, 0f);
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+
+        LockVelocity = false;
+
+        tr.emitting = false;
+        rb.gravityScale = originalGravity;
+        IsDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }

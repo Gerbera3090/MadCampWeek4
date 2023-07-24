@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 94125d88ff7d9924f91614acb36e4b2f
+guid: 29f9534597095b64aa6bba7853e00e98
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _Roll_0
+      name: _Idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afac0d8686cf546408909dc6fc2129bf
-      internalID: -1707435355
+      spriteID: bb23df24327dbe2408de74de792f876d
+      internalID: -940567509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_1
+      name: _Idle_1
       rect:
         serializedVersion: 2
         x: 120
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f26d920a7af51a742a177019ad9e1a47
-      internalID: 2107954948
+      spriteID: f3374715522c92c448928661043b40b8
+      internalID: -1282372590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_2
+      name: _Idle_2
       rect:
         serializedVersion: 2
         x: 240
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e789d57d8fe9364f8c174f03473788f
-      internalID: 1919596862
+      spriteID: cc2308c53d5fa634983fa670e2078488
+      internalID: -1954005524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_3
+      name: _Idle_3
       rect:
         serializedVersion: 2
         x: 360
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abe3549f109d39a489e0fd5539254a47
-      internalID: 734053008
+      spriteID: d971ba558d1c3554a8e67d0da200a037
+      internalID: 1007810129
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_4
+      name: _Idle_4
       rect:
         serializedVersion: 2
         x: 480
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16beed62eba7a9e468e79433bbe8fce9
-      internalID: -191166266
+      spriteID: 12bb46c3e73169745bb00776edf9e18e
+      internalID: -346624316
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_5
+      name: _Idle_5
       rect:
         serializedVersion: 2
         x: 600
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7fec32634aa28744fa7bdad38b8a315e
-      internalID: -596204060
+      spriteID: 1121f69376bf55543a2c65a3a65ec15f
+      internalID: -1408641289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_6
+      name: _Idle_6
       rect:
         serializedVersion: 2
         x: 720
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84b3f3c86b6c9664ea53bdacf5ab41dd
-      internalID: -1867882665
+      spriteID: 2fa2d65836c896646badf7f58183b69e
+      internalID: -1952743329
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_7
+      name: _Idle_7
       rect:
         serializedVersion: 2
         x: 840
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac9800b5e0528684ea14d055a249758b
-      internalID: 811607520
+      spriteID: 35ae1afe2c448fc4e8fb0aacd9b9c6df
+      internalID: -1547211538
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_8
+      name: _Idle_8
       rect:
         serializedVersion: 2
         x: 960
@@ -305,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7250cdb7a67a6b4586df01a850f56b7
-      internalID: 85776149
+      spriteID: 15b61f65fcca9a2449b1610d56081379
+      internalID: -1302627645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Roll_9
+      name: _Idle_9
       rect:
         serializedVersion: 2
         x: 1080
@@ -326,50 +326,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45951d0e347663747b9ebb821b15a087
-      internalID: 1626906573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Roll_10
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1c75b5d3bd4c36049aff9fe885e751fa
-      internalID: -486203373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Roll_11
-      rect:
-        serializedVersion: 2
-        x: 1320
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d9fae9b3c11ef1144877524498e97765
-      internalID: 231380968
+      spriteID: a71c9d623041a9745a68f62b524a7c59
+      internalID: 1230427997
       vertices: []
       indices: 
       edges: []
@@ -385,18 +343,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      _Roll_0: -1707435355
-      _Roll_1: 2107954948
-      _Roll_10: -486203373
-      _Roll_11: 231380968
-      _Roll_2: 1919596862
-      _Roll_3: 734053008
-      _Roll_4: -191166266
-      _Roll_5: -596204060
-      _Roll_6: -1867882665
-      _Roll_7: 811607520
-      _Roll_8: 85776149
-      _Roll_9: 1626906573
+      _Idle_0: -940567509
+      _Idle_1: -1282372590
+      _Idle_2: -1954005524
+      _Idle_3: 1007810129
+      _Idle_4: -346624316
+      _Idle_5: -1408641289
+      _Idle_6: -1952743329
+      _Idle_7: -1547211538
+      _Idle_8: -1302627645
+      _Idle_9: 1230427997
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
