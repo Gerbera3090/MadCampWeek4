@@ -23,7 +23,7 @@ public class MonsterController : MonoBehaviour
     
     private bool isBasicMoving;
 
-    private bool printLog = true;
+    private bool printLog = false;
     public void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();

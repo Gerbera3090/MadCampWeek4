@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonController : MonoBehaviour
+public class SkeletonController : MonoBehaviour, IController
 {
     public float walkspeed = 3f;
 
     Rigidbody2D rb;
     Animator animator;
     TouchingDirections touchingDirections; 
-    public AttackZone attackZone;
+    AttackZone attackZone;
 
     Damageable damageable;
 
     public float walkStopRate = 0.6f;
 
     public bool canMove {
-        get { return animator.GetBool(AnimationStrings.canMove); }
+        get => animator.GetBool(AnimationStrings.canMove);
+        set => animator.SetBool(AnimationStrings.canMove, value);
     }
 
     public float CurrentSpeed {
@@ -44,20 +45,44 @@ public class SkeletonController : MonoBehaviour
         } 
     }
 
+
     private bool _isMoving = false;
 
     public bool IsMoving { 
-        get { return _isMoving; }
-        private set {
+        get => _isMoving;
+        set {
             _isMoving = value; // private ismoving 값대로 animator의 변수 설정
             animator.SetBool(AnimationStrings.isMoving, value);
         } 
     }
 
+    private bool _isFacingRight = true;
+
+    public bool IsFacingRight {
+        get => _isFacingRight;
+        set {
+            if (_isFacingRight != value) {
+                transform.localScale *= new Vector2(-1, 1);
+            }
+            _isFacingRight = value;
+        } 
+    }
+
+
+    public bool CanMove {
+        get => animator.GetBool(AnimationStrings.canMove);
+        set => animator.SetBool(AnimationStrings.canMove, value);
+    }
+
+    public bool IsAlive {
+        get => animator.GetBool(AnimationStrings.isAlive);
+        set => animator.SetBool(AnimationStrings.isAlive, value);
+    }
+
     private bool _hasTarget = false;
 
     public bool HasTarget {
-        get { return _hasTarget;}
+        get => _hasTarget;
         private set {
             _hasTarget = value;
             animator.SetBool(AnimationStrings.hasTarget, value);
@@ -71,6 +96,8 @@ public class SkeletonController : MonoBehaviour
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
+        IsAlive = true;
+        attackZone = GetComponentInChildren<AttackZone>();
     }
 
     // Start is called before the first frame update
@@ -89,7 +116,6 @@ public class SkeletonController : MonoBehaviour
         if(touchingDirections.IsGrounded && touchingDirections.IsOnWall) {
             FlipDirections();
         }
-
         if(canMove) {
             rb.velocity = new Vector2(CurrentSpeed * walkDirectionVector.x, rb.velocity.y);
         } else {
@@ -98,7 +124,7 @@ public class SkeletonController : MonoBehaviour
         
     }
 
-    private void FlipDirections() {
+    public void FlipDirections() {
         if(walkDirection == WalkableDirection.Left) {
             walkDirection = WalkableDirection.Right;
         } else if (walkDirection == WalkableDirection.Right) {
@@ -109,4 +135,23 @@ public class SkeletonController : MonoBehaviour
     public void OnHit(int damage, Vector2 knockback) {
         //rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
+    
+    public void Dead()
+    {
+        gameObject.SetActive(false);
+    }
+    
+    public void CallKnockBack(Vector2 knockBackForceVector, float knockTime)
+    {
+        rb.AddForce(knockBackForceVector);
+        StartCoroutine(KnockTimeRoutine(knockTime));
+    }
+
+    public IEnumerator KnockTimeRoutine(float knockTime)
+    {
+        CanMove = false;
+        yield return new WaitForSeconds(knockTime);
+        CanMove = true;
+    }
+    
 }
