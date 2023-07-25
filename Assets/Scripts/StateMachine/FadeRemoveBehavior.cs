@@ -30,7 +30,8 @@ public class FadeRemoveBehavior : StateMachineBehaviour
         spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha); // 새 색으로 설정
 
         if(timePassed > fadeTime) {
-            Destroy(objectToRemove);
+            //Destroy(objectToRemove); 
+            objectToRemove.SetActive(false);
         }
     }
 

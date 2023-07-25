@@ -27,7 +27,7 @@ public class Damageable : MonoBehaviour
 
     public float Health {
         get { return _health;}
-        private set
+        set
         {
             _health = Mathf.Max(0, Mathf.Min(_maxHealth, value));
             if(_health <= 0) { // 죽은거로 처리
@@ -73,12 +73,12 @@ public class Damageable : MonoBehaviour
     
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (isInvincible) return;
+        string tp = isPlayer ? "Player" : "Monster";
+        if (isPlayer && isInvincible) return;
         if (!other.gameObject.CompareTag("Attack")) return;
-           
         var attack = other.gameObject.GetComponent<Attack>();
+        if (isPlayer == attack.isPlayer) return;
         float damage = attack.attackDamage;
-        Vector2 knockBack = attack.knockBack;
         string attackType = attack.attackType;
         // attackType에 따라서 데미지 계산
         
@@ -88,8 +88,8 @@ public class Damageable : MonoBehaviour
         animator.SetTrigger(AnimationStrings.hitTrigger);
         controller.CallKnockBack(attack.knockBack, attack.knockTime);
         // 
-        Debug.Log("received damage of"+ damage);
-        Debug.Log("Remained HP : " + Health);
+        Debug.Log(tp + " received damage of : "+ damage);
+        Debug.Log(tp + " Remained HP : " + Health);
     }
     
     

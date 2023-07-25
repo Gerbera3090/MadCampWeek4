@@ -22,4 +22,6 @@ internal class AnimationStrings {
   internal static string lockVelocity = "lockVelocity";
 
   internal static string isDashing = "isDashing";
+  internal static string isRising = "isRising";
+  internal static string isHanging = "isHanging";
 }
