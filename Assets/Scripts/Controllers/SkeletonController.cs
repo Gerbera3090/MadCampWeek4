@@ -5,20 +5,17 @@ using UnityEngine;
 public class SkeletonController : MonoBehaviour, IController
 {
     public float walkspeed = 3f;
-
+    public GameObject spawnPoint;
     Rigidbody2D rb;
     Animator animator;
     TouchingDirections touchingDirections; 
     AttackZone attackZone;
-
+    private SpriteRenderer spriteRenderer;
     Damageable damageable;
-
+    private AttackZone cliffDetect;
+    private bool isAttacking = false;
+    
     public float walkStopRate = 0.6f;
-
-    public bool canMove {
-        get => animator.GetBool(AnimationStrings.canMove);
-        set => animator.SetBool(AnimationStrings.canMove, value);
-    }
 
     public float CurrentSpeed {
         get { return walkspeed; }
@@ -98,6 +95,10 @@ public class SkeletonController : MonoBehaviour, IController
         damageable = GetComponent<Damageable>();
         IsAlive = true;
         attackZone = GetComponentInChildren<AttackZone>();
+        damageable = GetComponent<Damageable>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        cliffDetect = GetComponentsInChildren<AttackZone>()[1];
+        Debug.Log(cliffDetect.gameObject);
     }
 
     // Start is called before the first frame update
@@ -108,20 +109,28 @@ public class SkeletonController : MonoBehaviour, IController
 
     void Update() {
         HasTarget = attackZone.detectedColliders.Count > 0;  // 타겟이 있는지 없는지 계속 업데이트
+        
     }
 
     // Update is called once per frame in physics
     void FixedUpdate()
     {
         if(touchingDirections.IsGrounded && touchingDirections.IsOnWall) {
+            //Debug.Log("Flip by wall");
             FlipDirections();
         }
-        if(canMove) {
+
+        if (touchingDirections.IsGrounded && cliffDetect.detectedColliders.Count <= 0)
+        {
+            //Debug.Log("Flip by Cliff");
+            FlipDirections();
+        }
+        if(CanMove) {
             rb.velocity = new Vector2(CurrentSpeed * walkDirectionVector.x, rb.velocity.y);
         } else {
-            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y); // rb.velocity.x에서 0으로 감속
+            //rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y); // rb.velocity.x에서 0으로 감속
         }
-        
+        IsMoving = rb.velocity.magnitude > 0;
     }
 
     public void FlipDirections() {
@@ -132,18 +141,20 @@ public class SkeletonController : MonoBehaviour, IController
         } 
     }
 
-    public void OnHit(int damage, Vector2 knockback) {
-        //rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
-    }
-    
     public void Dead()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        IsAlive = false;
+        spriteRenderer.enabled = false;
+        rb.simulated = false;
+        StartCoroutine(RespawnRoutine());
     }
     
     public void CallKnockBack(Vector2 knockBackForceVector, float knockTime)
     {
-        rb.AddForce(knockBackForceVector);
+        Vector2 knockback = new Vector2(knockBackForceVector.x, 0 );
+        knockback.y = touchingDirections.IsGrounded ? knockBackForceVector.y : rb.velocity.y;
+        rb.velocity = knockback;
         StartCoroutine(KnockTimeRoutine(knockTime));
     }
 
@@ -152,6 +163,17 @@ public class SkeletonController : MonoBehaviour, IController
         CanMove = false;
         yield return new WaitForSeconds(knockTime);
         CanMove = true;
+    }
+
+    IEnumerator RespawnRoutine(){
+        yield return new WaitForSeconds(5f);
+        transform.position = spawnPoint.transform.position;
+        IsAlive = true;
+        spriteRenderer.enabled = true;
+        rb.simulated = true;
+        CanMove = true;
+        damageable.Health = damageable.MaxHealth;
+        animator.SetBool(AnimationStrings.isMoving, true);
     }
     
 }

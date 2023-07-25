@@ -7,16 +7,21 @@ public class AttackZone : MonoBehaviour
 {
     public List<Collider2D> detectedColliders = new List<Collider2D>();
     Collider2D collider;
+    public string detectTag;
 
     private void Awake() {
         collider = GetComponent<Collider2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag(detectTag)) return;
+        Debug.Log(collision.tag + " Entered");
         detectedColliders.Add(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
+        if (!collision.CompareTag(detectTag)) return;
         detectedColliders.Remove(collision);
     }
 }
