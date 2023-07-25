@@ -13,6 +13,8 @@ public class SkeletonController : MonoBehaviour, IController
     private SpriteRenderer spriteRenderer;
     Damageable damageable;
     private AttackZone cliffDetect;
+    private AttackZone frontPlayerDetect;
+    private AttackZone backPlayerDetect;
     private bool isAttacking = false;
     
     public float walkStopRate = 0.6f;
@@ -25,7 +27,7 @@ public class SkeletonController : MonoBehaviour, IController
 
     private WalkableDirection _walkDirection = WalkableDirection.Right;
     private Vector2 walkDirectionVector;
-
+    
     public WalkableDirection walkDirection {
         get { return _walkDirection; }
         private set {
@@ -98,7 +100,11 @@ public class SkeletonController : MonoBehaviour, IController
         damageable = GetComponent<Damageable>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         cliffDetect = GetComponentsInChildren<AttackZone>()[1];
-        Debug.Log(cliffDetect.gameObject);
+        frontPlayerDetect = GetComponentsInChildren<AttackZone>()[2];
+        backPlayerDetect = GetComponentsInChildren<AttackZone>()[3];
+        Debug.Log(frontPlayerDetect.detectTag);
+        Debug.Log(backPlayerDetect.detectTag);
+
     }
 
     // Start is called before the first frame update
@@ -115,16 +121,12 @@ public class SkeletonController : MonoBehaviour, IController
     // Update is called once per frame in physics
     void FixedUpdate()
     {
-        if(touchingDirections.IsGrounded && touchingDirections.IsOnWall) {
+        if(touchingDirections.IsGrounded && (touchingDirections.IsOnWall || cliffDetect.detectedColliders.Count <= 0 ||
+                                             (backPlayerDetect.detectedColliders.Count > 0 && CanMove))  ) {
             //Debug.Log("Flip by wall");
             FlipDirections();
         }
-
-        if (touchingDirections.IsGrounded && cliffDetect.detectedColliders.Count <= 0)
-        {
-            //Debug.Log("Flip by Cliff");
-            FlipDirections();
-        }
+        
         if(CanMove) {
             rb.velocity = new Vector2(CurrentSpeed * walkDirectionVector.x, rb.velocity.y);
         } else {

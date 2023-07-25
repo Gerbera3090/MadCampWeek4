@@ -16,12 +16,14 @@ public class AttackZone : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag(detectTag)) return;
-        Debug.Log(collision.tag + " Entered");
         detectedColliders.Add(collision);
+        if(collision.CompareTag("Player"))Debug.Log(name + "Player detected");
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (!collision.CompareTag(detectTag)) return;
         detectedColliders.Remove(collision);
     }
+    
+    
 }

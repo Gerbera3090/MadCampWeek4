@@ -73,10 +73,11 @@ public class Damageable : MonoBehaviour
     
     public void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.gameObject.CompareTag("Attack")) return;
         string tp = isPlayer ? "Player" : "Monster";
         if (isPlayer && isInvincible) return;
-        if (!other.gameObject.CompareTag("Attack")) return;
         var attack = other.gameObject.GetComponent<Attack>();
+        Debug.Log(isPlayer == attack.isPlayer);
         if (isPlayer == attack.isPlayer) return;
         float damage = attack.attackDamage;
         string attackType = attack.attackType;

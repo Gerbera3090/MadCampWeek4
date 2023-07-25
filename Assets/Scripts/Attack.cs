@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,4 +11,12 @@ public class Attack : MonoBehaviour
     public float knockTime = 1f;
     
     public string attackType = "Physical";
+
+    private void FixedUpdate()
+    {
+        if (!isPlayer) return;
+            
+        knockBack = new Vector2(knockBack.x * GetComponentInParent<PlayerController>().faceDirectionVector.x, knockBack.y);
+        
+    }
 }

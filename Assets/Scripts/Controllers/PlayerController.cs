@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour, IController
     }
 
     private bool _isFacingRight = true;
-    private Vector2 faceDirectionVector = Vector2.right;
+    public Vector2 faceDirectionVector = Vector2.right;
 
     public bool IsFacingRight {
         get => _isFacingRight;
@@ -70,8 +70,7 @@ public class PlayerController : MonoBehaviour, IController
             faceDirectionVector = IsFacingRight? Vector2.right: Vector2.left;
         } 
     }
-
-
+    
     public bool CanMove {
         get => animator.GetBool(AnimationStrings.canMove);
         set => animator.SetBool(AnimationStrings.canMove, value);
@@ -87,12 +86,14 @@ public class PlayerController : MonoBehaviour, IController
         }
     }
 
-    private bool _lockVelocity = false;
+    //private bool _lockVelocity = false;
 
     public bool LockVelocity {
-        get { return _lockVelocity; }
+        //get { return _lockVelocity; }
+        get { return animator.GetBool(AnimationStrings.lockVelocity);}
+        
         private set {
-            _lockVelocity = value;
+            //_lockVelocity = value;
             animator.SetBool(AnimationStrings.lockVelocity, value);
         }
     }
@@ -109,18 +110,18 @@ public class PlayerController : MonoBehaviour, IController
     }
     
     private void FixedUpdate() {
-        if(!LockVelocity) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
         if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.gravityScale = 0f;
         }
-        else
+        else if(!LockVelocity)
         {
             rb.gravityScale = BASIC_GRAVITY;
         }
+        if(!LockVelocity) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
         
-        animator.SetBool(AnimationStrings.isHanging, touchingDirections.IsOnWall);
+        animator.SetBool(AnimationStrings.isHanging, touchingDirections.IsOnWall && !touchingDirections.IsGrounded);
         // if(!damageable.IsHit) {
         //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
         // }
@@ -135,7 +136,8 @@ public class PlayerController : MonoBehaviour, IController
         if(IsAlive) {
             IsMoving = moveInput != Vector2.zero;
             //Debug.Log("INPUT : "+moveInput);
-            SetFacingDirection(moveInput);  
+            if(!LockVelocity)
+                SetFacingDirection(moveInput);  
         } else {
             IsMoving = false;
         }
@@ -161,6 +163,35 @@ public class PlayerController : MonoBehaviour, IController
             animator.SetTrigger(AnimationStrings.attack);
         }
     }
+
+    public void OnAttackSpin(InputAction.CallbackContext context)
+    {
+        if(context.started) {
+            animator.SetTrigger(AnimationStrings.spinAttack);
+            Debug.Log(AnimationStrings.spinAttack+" ON");
+            if (touchingDirections.IsGrounded)
+            {
+                // Get the current position of the GameObject
+                Vector3 currentPosition = transform.position;
+                // Increase the y-axis value by 2
+                currentPosition.y += 2f;
+                // Set the new position to the GameObject's Transform
+                transform.position = currentPosition;
+            }
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            
+        }
+    }
+
+    public void OnAttackUpper(InputAction.CallbackContext context)
+    {
+        if(context.started) {
+            animator.SetTrigger(AnimationStrings.airborne);
+            Debug.Log(AnimationStrings.airborne+" ON");
+        }
+    }
+    
 
     public void Dead()
     {
@@ -235,7 +266,9 @@ public class PlayerController : MonoBehaviour, IController
         IsDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
-        
+        CanMove = true;
+
+
     }
 
 }
