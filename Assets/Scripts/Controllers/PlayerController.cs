@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour, IController
     Vector2 moveInput;
     TouchingDirections  touchingDirections;
     Damageable damageable;
+    public ParticleSystem dust;
 
     Rigidbody2D rb;
     Animator animator;
@@ -255,6 +256,7 @@ public class PlayerController : MonoBehaviour, IController
 
         rb.velocity = new Vector2(transform.localScale.x * dashImpulse, 0f);
         tr.emitting = true;
+        dust.Play();
         yield return new WaitForSeconds(dashingTime);
 
         LockVelocity = false;

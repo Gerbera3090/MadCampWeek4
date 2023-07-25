@@ -119,6 +119,7 @@ AnimationClip:
     classID: 58
     script: {fileID: 0}
     flags: 0
+  m_FloatCurves: []
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
