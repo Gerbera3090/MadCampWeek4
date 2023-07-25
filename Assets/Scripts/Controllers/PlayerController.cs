@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IController
 {
     public float walkspeed = 5f;
     public float jumpImpulse = 10f;
@@ -48,10 +48,8 @@ public class PlayerController : MonoBehaviour
     private bool _isMoving = false;
 
     public bool IsMoving { 
-        get {
-            return _isMoving;
-        }
-        private set {
+        get => _isMoving;
+        set {
             _isMoving = value; // private ismoving 값대로 animator의 변수 설정
             animator.SetBool(AnimationStrings.isMoving, value);
         } 
@@ -61,10 +59,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 faceDirectionVector = Vector2.right;
 
     public bool IsFacingRight {
-        get {
-            return _isFacingRight;
-        }
-        private set {
+        get => _isFacingRight;
+        set {
             if (_isFacingRight != value) {
                 transform.localScale *= new Vector2(-1, 1);
             }
@@ -74,16 +70,15 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+
     public bool CanMove {
-        get {
-            return animator.GetBool(AnimationStrings.canMove);
-        }
+        get => animator.GetBool(AnimationStrings.canMove);
+        set => animator.SetBool(AnimationStrings.canMove, value);
     }
 
     public bool IsAlive {
-        get {
-            return animator.GetBool(AnimationStrings.isAlive);
-        }
+        get => animator.GetBool(AnimationStrings.isAlive);
+        set => animator.SetBool(AnimationStrings.isAlive, value);
     }
 
     private bool _lockVelocity = false;
@@ -102,20 +97,17 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
+        CanMove = true;
+=======
         tr = GetComponent<TrailRenderer>();
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
     }
-
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
+    
     private void FixedUpdate() {
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
+        if(CanMove) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+=======
         // if(!damageable.IsHit) {
         //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
         // }
@@ -123,15 +115,15 @@ public class PlayerController : MonoBehaviour
         if(!LockVelocity) {
             rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
         }
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
     }
 
 
     public void OnMove(InputAction.CallbackContext context) {
         moveInput = context.ReadValue<Vector2>(); // 방향키의 '값'을 읽어서 moveInput에 저장
-
         if(IsAlive) {
             IsMoving = moveInput != Vector2.zero;
-
+            //Debug.Log("INPUT : "+moveInput);
             SetFacingDirection(moveInput);  
         } else {
             IsMoving = false;
@@ -155,14 +147,36 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context) {
         if(context.started) {
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
+            //Debug.Log("attack input");
+=======
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
             animator.SetTrigger(AnimationStrings.attack);
         }
     }
 
-    public void OnHit(int damage, Vector2 knockback) {
-        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+    public void Dead()
+    {
+        //게임 오버 화면 넘어가기
+        gameObject.SetActive(false);
     }
 
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
+    public void CallKnockBack(Vector2 knockBackForceVector, float knockTime)
+    {
+        rb.AddForce(knockBackForceVector);
+        StartCoroutine(KnockTimeRoutine(knockTime));
+    }
+
+    public IEnumerator KnockTimeRoutine(float knockTime)
+    {
+        CanMove = false;
+        yield return new WaitForSeconds(knockTime);
+        CanMove = true;
+    }
+
+
+=======
     public void OnRoll(InputAction.CallbackContext context) {
         if(context.started && touchingDirections.IsGrounded) {
             animator.SetTrigger(AnimationStrings.roll);
@@ -198,4 +212,5 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
 }
