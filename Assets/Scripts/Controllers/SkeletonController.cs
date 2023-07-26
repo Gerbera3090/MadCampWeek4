@@ -17,6 +17,8 @@ public class SkeletonController : MonoBehaviour, IController
     private AttackZone backPlayerDetect;
     private bool isAttacking = false;
 
+    public bool canRespawn = true;
+    
     public float walkStopRate = 0.6f;
 
     public float CurrentSpeed {
@@ -149,7 +151,15 @@ public class SkeletonController : MonoBehaviour, IController
         IsAlive = false;
         spriteRenderer.enabled = false;
         rb.simulated = false;
-        StartCoroutine(RespawnRoutine());
+        if (canRespawn)
+        {
+            if(spawnPoint==null)
+                Debug.Log("Please Set the SpawnPoint in the Inspector!");
+            else
+            {
+                StartCoroutine(RespawnRoutine());
+            }
+        }
     }
     
     public void CallKnockBack(Vector2 knockBackForceVector, float knockTime)
@@ -169,6 +179,7 @@ public class SkeletonController : MonoBehaviour, IController
 
     IEnumerator RespawnRoutine(){
         yield return new WaitForSeconds(5f);
+        if (IsAlive) yield break;
         transform.position = spawnPoint.transform.position;
         IsAlive = true;
         spriteRenderer.enabled = true;

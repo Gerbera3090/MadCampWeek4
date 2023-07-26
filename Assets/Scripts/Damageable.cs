@@ -10,7 +10,7 @@ public class Damageable : MonoBehaviour
 {
     public float shakeDuration = 0.2f;
     public float shakeIntensity = 0.2f;
-    public UnityEvent<int, Vector2> damageableHit;
+    //public UnityEvent<int, Vector2> damageableHit;
     public bool isPlayer;
     Animator animator;
     private IController controller;
@@ -23,7 +23,7 @@ public class Damageable : MonoBehaviour
     private WaitForSeconds burnTimeWait = new WaitForSeconds(5f);
     private float burnTimer = 0;
     public int iceCount = 0;
-    
+
     public float MaxHealth {
         get { return _maxHealth;}
         private set
@@ -61,7 +61,7 @@ public class Damageable : MonoBehaviour
     private bool isInvincible;
 
     private float timeSinceHit = 0;
-    public float invincibilityTime = 0.25f; // 한번 맞은 후, 특정 시간동안은 다시 맞을 수 없음
+    public float invincibilityTime = 1f; // 한번 맞은 후, 특정 시간동안은 다시 맞을 수 없음
 
 
     // component 가져오기
@@ -83,11 +83,12 @@ public class Damageable : MonoBehaviour
 
         if (burnCount > 0)
         {
-            sprite.color = Color.red;
+            sprite.color = new Color(1f, 0.4f, 0.4f);
             if (burnTimer > 1f)
             {
                 Health -= BURNDAMAGE;
                 burnTimer = 0;
+                animator.SetTrigger(AnimationStrings.hitTrigger);
             }
             else
             {
@@ -95,7 +96,13 @@ public class Damageable : MonoBehaviour
             }
             //불데미지 소리
         }
-        else // if(burnCount + iceCount + lighteningCount > 0)
+
+        if (iceCount > 0)
+        {
+            sprite.color = new Color(0.4f, 0.4f, 1f);
+        }
+        
+        if (burnCount + iceCount == 0)
         {
             sprite.color = Color.white;
         }
@@ -108,15 +115,24 @@ public class Damageable : MonoBehaviour
         string tp = isPlayer ? "Player" : "Monster";
         if (isPlayer && isInvincible) return;
         var attack = other.gameObject.GetComponent<Attack>();
-        Debug.Log(isPlayer == attack.isPlayer);
+        //Debug.Log(isPlayer == attack.isPlayer);
         if (isPlayer == attack.isPlayer) return;
         float damage = attack.attackDamage;
-        string attackType = attack.attackType;
+        string attackType = attack.AttackType;
         // attackType에 따라서 데미지 계산
-        if (attackType.Equals("Fire"))
+        switch (attackType)
         {
-            StartCoroutine(BurnRoutine());
+            case "Fire":
+                StartCoroutine(BurnRoutine());
+                break;
+            case "Ice":
+                StartCoroutine(IceRoutine());
+                break;
+            default:
+                break;
         }
+        
+        
         // 체력 감소
         Health -= damage;
         // 피격 모션 및 소리, 넉백 코루틴으로 출력
@@ -129,13 +145,13 @@ public class Damageable : MonoBehaviour
             StartCoroutine(ShakeEffect());
         }
         
-        Debug.Log(tp + " received damage of : "+ damage);
-        Debug.Log(tp + " Remained HP : " + Health);
+        //Debug.Log(tp + " received damage of : "+ damage);
+        //Debug.Log(tp + " Remained HP : " + Health);
     }
     
     private IEnumerator ShakeEffect()
     {
-        Debug.Log("SHAKE EFFECT!");
+        //Debug.Log("SHAKE EFFECT!");
         Vector3 originalPosition = Camera.main.transform.position;
         float elapsed = 0f;
 
@@ -156,5 +172,11 @@ public class Damageable : MonoBehaviour
         burnCount++;
         yield return burnTimeWait;
         burnCount--;
+    }
+    private IEnumerator IceRoutine()
+    {
+        iceCount++;
+        yield return burnTimeWait;
+        iceCount--;
     }
 }
