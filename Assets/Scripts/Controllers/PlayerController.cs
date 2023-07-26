@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour, IController
     Vector2 moveInput;
     TouchingDirections  touchingDirections;
     Damageable damageable;
-    public ParticleSystem dust;
+    //public ParticleSystem dust;
 
     Rigidbody2D rb;
     Animator animator;
@@ -256,12 +256,11 @@ public class PlayerController : MonoBehaviour, IController
 
         rb.velocity = new Vector2(transform.localScale.x * dashImpulse, 0f);
         tr.emitting = true;
-        dust.Play();
+        //dust.Play();
         yield return new WaitForSeconds(dashingTime);
 
         LockVelocity = false;
-
-
+        Debug.Log("Dash End");
         dashattack.enabled = false;
         tr.emitting = false;
         rb.gravityScale = originalGravity;
@@ -269,7 +268,7 @@ public class PlayerController : MonoBehaviour, IController
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
         CanMove = true;
-
+        Debug.Log("Dash Cool End");
 
     }
 

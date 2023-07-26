@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _Idle_0
+      name: fire-skull_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 120
-        height: 80
+        width: 96
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb23df24327dbe2408de74de792f876d
-      internalID: -940567509
+      spriteID: 92333f53f7e0b584e9709ece1d4aaf6e
+      internalID: -1912060515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_1
+      name: fire-skull_1
       rect:
         serializedVersion: 2
-        x: 120
+        x: 96
         y: 0
-        width: 120
-        height: 80
+        width: 96
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +158,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3374715522c92c448928661043b40b8
-      internalID: -1282372590
+      spriteID: ffa8b6f3c2388c54d951590d6414eb79
+      internalID: -1339381200
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_2
+      name: fire-skull_2
       rect:
         serializedVersion: 2
-        x: 240
+        x: 192
         y: 0
-        width: 120
-        height: 80
+        width: 96
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +179,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc2308c53d5fa634983fa670e2078488
-      internalID: -1954005524
+      spriteID: 6a32aed78bafccc44af7c50919a0b88b
+      internalID: 431543715
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_3
+      name: fire-skull_3
       rect:
         serializedVersion: 2
-        x: 360
+        x: 288
         y: 0
-        width: 120
-        height: 80
+        width: 96
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +200,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d971ba558d1c3554a8e67d0da200a037
-      internalID: 1007810129
+      spriteID: 0084015eab1efb14a9724074a2292e34
+      internalID: 466789346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_4
+      name: fire-skull_4
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 225bfef1d2578d74098d5e72a41ac5a1
+      internalID: -1868219723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fire-skull_5
       rect:
         serializedVersion: 2
         x: 480
         y: 0
-        width: 120
-        height: 80
+        width: 96
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +242,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12bb46c3e73169745bb00776edf9e18e
-      internalID: -346624316
+      spriteID: 5b6e8d6329708bb4d8e6a5e3841ba089
+      internalID: -628854006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_5
+      name: fire-skull_6
       rect:
         serializedVersion: 2
-        x: 600
+        x: 576
         y: 0
-        width: 120
-        height: 80
+        width: 96
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,20 +263,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1121f69376bf55543a2c65a3a65ec15f
-      internalID: -1408641289
+      spriteID: 6d434e9408a66ae42a351222d59e0fdb
+      internalID: -37994167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_6
+      name: fire-skull_7
       rect:
         serializedVersion: 2
-        x: 720
+        x: 672
         y: 0
-        width: 120
-        height: 80
+        width: 96
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,71 +284,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fa2d65836c896646badf7f58183b69e
-      internalID: -1952743329
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_7
-      rect:
-        serializedVersion: 2
-        x: 840
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 35ae1afe2c448fc4e8fb0aacd9b9c6df
-      internalID: -1547211538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_8
-      rect:
-        serializedVersion: 2
-        x: 960
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15b61f65fcca9a2449b1610d56081379
-      internalID: -1302627645
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_9
-      rect:
-        serializedVersion: 2
-        x: 1080
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a71c9d623041a9745a68f62b524a7c59
-      internalID: 1230427997
+      spriteID: d3c9bbfd5ab5ed24c854ea0bac3fd9c5
+      internalID: 366922314
       vertices: []
       indices: 
       edges: []
@@ -343,16 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      _Idle_0: -940567509
-      _Idle_1: -1282372590
-      _Idle_2: -1954005524
-      _Idle_3: 1007810129
-      _Idle_4: -346624316
-      _Idle_5: -1408641289
-      _Idle_6: -1952743329
-      _Idle_7: -1547211538
-      _Idle_8: -1302627645
-      _Idle_9: 1230427997
+      fire-skull_0: -1912060515
+      fire-skull_1: -1339381200
+      fire-skull_2: 431543715
+      fire-skull_3: 466789346
+      fire-skull_4: -1868219723
+      fire-skull_5: -628854006
+      fire-skull_6: -37994167
+      fire-skull_7: 366922314
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

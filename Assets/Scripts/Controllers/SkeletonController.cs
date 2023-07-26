@@ -176,6 +176,8 @@ public class SkeletonController : MonoBehaviour, IController
         CanMove = true;
         damageable.Health = damageable.MaxHealth;
         animator.SetBool(AnimationStrings.isMoving, true);
+        animator.SetBool(AnimationStrings.isAlive, true);
+        
     }
     
 }

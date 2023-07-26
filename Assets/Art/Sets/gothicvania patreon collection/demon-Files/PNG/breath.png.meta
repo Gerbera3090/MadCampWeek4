@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _Idle_0
+      name: breath_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 120
-        height: 80
+        width: 160
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb23df24327dbe2408de74de792f876d
-      internalID: -940567509
+      spriteID: 79cee5d681ffa6c418f1369d01720d14
+      internalID: 899141774
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_1
+      name: breath_1
       rect:
         serializedVersion: 2
-        x: 120
+        x: 160
         y: 0
-        width: 120
-        height: 80
+        width: 160
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +158,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3374715522c92c448928661043b40b8
-      internalID: -1282372590
+      spriteID: ffeefe911765c0c459fa0555aabfdb12
+      internalID: 1514369385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_2
+      name: breath_2
       rect:
         serializedVersion: 2
-        x: 240
+        x: 320
         y: 0
-        width: 120
-        height: 80
+        width: 160
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,41 +179,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc2308c53d5fa634983fa670e2078488
-      internalID: -1954005524
+      spriteID: 71e25af74b66c2e4aafba03c260198ae
+      internalID: 848624263
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_3
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d971ba558d1c3554a8e67d0da200a037
-      internalID: 1007810129
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_4
+      name: breath_3
       rect:
         serializedVersion: 2
         x: 480
         y: 0
-        width: 120
-        height: 80
+        width: 160
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +200,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12bb46c3e73169745bb00776edf9e18e
-      internalID: -346624316
+      spriteID: cdba5e7bd699b6b4c9fb2b068abb7853
+      internalID: 867585077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Idle_5
+      name: breath_4
       rect:
         serializedVersion: 2
-        x: 600
+        x: 640
         y: 0
-        width: 120
-        height: 80
+        width: 160
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,92 +221,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1121f69376bf55543a2c65a3a65ec15f
-      internalID: -1408641289
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_6
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2fa2d65836c896646badf7f58183b69e
-      internalID: -1952743329
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_7
-      rect:
-        serializedVersion: 2
-        x: 840
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 35ae1afe2c448fc4e8fb0aacd9b9c6df
-      internalID: -1547211538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_8
-      rect:
-        serializedVersion: 2
-        x: 960
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15b61f65fcca9a2449b1610d56081379
-      internalID: -1302627645
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: _Idle_9
-      rect:
-        serializedVersion: 2
-        x: 1080
-        y: 0
-        width: 120
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a71c9d623041a9745a68f62b524a7c59
-      internalID: 1230427997
+      spriteID: 76a4ba158466e884c9277549b57672bc
+      internalID: 1835124244
       vertices: []
       indices: 
       edges: []
@@ -343,16 +238,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      _Idle_0: -940567509
-      _Idle_1: -1282372590
-      _Idle_2: -1954005524
-      _Idle_3: 1007810129
-      _Idle_4: -346624316
-      _Idle_5: -1408641289
-      _Idle_6: -1952743329
-      _Idle_7: -1547211538
-      _Idle_8: -1302627645
-      _Idle_9: 1230427997
+      breath_0: 899141774
+      breath_1: 1514369385
+      breath_2: 848624263
+      breath_3: 867585077
+      breath_4: 1835124244
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
