@@ -98,17 +98,12 @@ public class PlayerController : MonoBehaviour, IController
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
-<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
         CanMove = true;
-=======
         tr = GetComponent<TrailRenderer>();
->>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
     }
     
     private void FixedUpdate() {
-<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
         if(CanMove) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
-=======
         // if(!damageable.IsHit) {
         //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
         // }
@@ -116,7 +111,6 @@ public class PlayerController : MonoBehaviour, IController
         if(!LockVelocity) {
             rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
         }
->>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
     }
 
 
@@ -148,10 +142,7 @@ public class PlayerController : MonoBehaviour, IController
 
     public void OnAttack(InputAction.CallbackContext context) {
         if(context.started) {
-<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
             //Debug.Log("attack input");
-=======
->>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
             animator.SetTrigger(AnimationStrings.attack);
         }
     }
@@ -162,7 +153,6 @@ public class PlayerController : MonoBehaviour, IController
         gameObject.SetActive(false);
     }
 
-<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
     public void CallKnockBack(Vector2 knockBackForceVector, float knockTime)
     {
         rb.AddForce(knockBackForceVector);
@@ -177,7 +167,6 @@ public class PlayerController : MonoBehaviour, IController
     }
 
 
-=======
     public void OnRoll(InputAction.CallbackContext context) {
         if(context.started && touchingDirections.IsGrounded) {
             animator.SetTrigger(AnimationStrings.roll);
@@ -214,5 +203,4 @@ public class PlayerController : MonoBehaviour, IController
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
->>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
 }

@@ -316,6 +316,7 @@ MonoBehaviour:
   canDash: 1
   dashImpulse: 24
   dashingTime: 0.2
+  dust: {fileID: 0}
 --- !u!70 &3513747063931293412
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -410,6 +411,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isPlayer: 0
   _maxHealth: 100
   _health: 100
   _isAlive: 1
@@ -570,11 +572,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4631171776162440774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2afa9bb80a3ac4783395d0a4507d26, type: 3}
+  m_Script: {fileID: 11500000, guid: 2facba1df24208e4294a701fd7a46f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  knockback: {x: 10, y: 2}
+  isPlayer: 1
+  knockBack: {x: 2, y: 5}
+  knockTime: 1
+  attackType: Physical
 --- !u!61 &2744431560859424415
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -662,11 +667,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6099099155490377016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2afa9bb80a3ac4783395d0a4507d26, type: 3}
+  m_Script: {fileID: 11500000, guid: 2facba1df24208e4294a701fd7a46f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  knockback: {x: 0, y: 0}
+  isPlayer: 1
+  knockBack: {x: 2, y: 5}
+  knockTime: 1
+  attackType: Physical
 --- !u!61 &4376312818185128228
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5582,11 +5590,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8444028813648708424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2afa9bb80a3ac4783395d0a4507d26, type: 3}
+  m_Script: {fileID: 11500000, guid: 2facba1df24208e4294a701fd7a46f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  knockback: {x: 0, y: 0}
+  isPlayer: 1
+  knockBack: {x: 2, y: 5}
+  knockTime: 1
+  attackType: Physical
 --- !u!61 &6937176199330923896
 BoxCollider2D:
   m_ObjectHideFlags: 0
