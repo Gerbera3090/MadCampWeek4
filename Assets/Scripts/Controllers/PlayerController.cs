@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,21 +9,20 @@ public class PlayerController : MonoBehaviour, IController
     
     public float walkspeed = 10f;
     public float jumpImpulse = 20f;
-    public float rollImpulse = 10f;
-    public bool canDash = true;
+    public float rollImpulse = 20f;
 
     private bool _isDashing = false;
     public bool IsDashing {
         get { return _isDashing; }
         private set {
             _isDashing = value;
-            animator.SetBool(AnimationStrings.isDashing, value);
+            if(value) animator.SetTrigger(AnimationStrings.isDashing);
         }
     }
     public float dashImpulse = 24f;
-    public float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
-
+    public float dashingTime = 0.5f;
+    private bool canJump = true;
+    
     Vector2 moveInput;
     TouchingDirections  touchingDirections;
     Damageable damageable;
@@ -30,14 +30,44 @@ public class PlayerController : MonoBehaviour, IController
 
     Rigidbody2D rb;
     Animator animator;
-    TrailRenderer tr;
 
     private float BASIC_GRAVITY = 5f;
+    string[] attackTypes = { "Physical", "Fire", "Ice" };
+    private int presentType = 0;
+    
+    public Dictionary<string, float> cooldowns = new Dictionary<string, float>
+    {
+        { "Upper", 0f },
+        { "Spin", 0f },
+        { "Fire", 0f },
+        { "Ice", 0f },
+        { "Dash", 0f },
+        {"Potion", 0f}
+    };
+
+    public Dictionary<string, float> coolTimes = new Dictionary<string, float>
+    {
+        { "Upper", 2f },
+        { "Spin", 5f },
+        { "Fire", 20f },
+        { "Ice", 20f },
+        { "Dash", 2f },
+        {"Potion", 5f}
+    };
+    
+    
+    public string AttackType
+    {
+        get
+        {
+            return attackTypes[presentType];
+        }
+    }
     
     public float CurrentSpeed {
         get {
             if (CanMove) {
-                if(IsMoving && !touchingDirections.IsOnWall) {
+                if(IsMoving) {
                     return walkspeed;
                 } else  {
                     return 0;
@@ -107,8 +137,6 @@ public class PlayerController : MonoBehaviour, IController
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
         CanMove = true;
-        tr = GetComponent<TrailRenderer>();
-
     }
     
     private void FixedUpdate() {
@@ -118,12 +146,18 @@ public class PlayerController : MonoBehaviour, IController
         {
             if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.velocity = new Vector2(moveInput.x * CurrentSpeed, 0);
+                //Debug.Log(rb.velocity);
                 rb.gravityScale = 0f;
             }
             else
             {
-                if(CanMove)rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+                if (CanMove)
+                {
+                    rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+                    SetFacingDirection(moveInput);
+                }
+
                 rb.gravityScale = BASIC_GRAVITY;
             }
         }
@@ -140,23 +174,65 @@ public class PlayerController : MonoBehaviour, IController
         if (!touchingDirections.IsGrounded){
             animator.SetBool(AnimationStrings.isRising, rb.velocity.y > 0);
         }
+        // Iterate through the dictionary and decrement each value by 1
+        foreach (var key in cooldowns.Keys.ToList()) // Using ToList to avoid modifying the dictionary during iteration
+        {
+            if (cooldowns[key] > 0)
+            {
+                //Debug.Log(key + " : "+cooldowns[key]);
+                //Debug.Log(key + " Bool Really : " + CheckCooldown(key));
+            }
+            cooldowns[key] -= Time.deltaTime;
+            
+        }
+
+        if (touchingDirections.IsOnWall || touchingDirections.IsGrounded) canJump = true;
     }
 
-    public void OnFire(InputAction.CallbackContext context)
+    public void OnPotion(InputAction.CallbackContext context)
     {
-        //if(fireCooltime>0)
-        if(context.started) {
-            animator.SetTrigger(AnimationStrings.fireAttack);
+        if (context.started)
+        {
+            if (CheckCooldown("Potion"))
+            {
+                damageable.Health += 50;
+                
+            }
         }
     }
     
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if(context.started) {
+            if(CheckCooldown("Fire")){
+                animator.SetTrigger(AnimationStrings.fireAttack);
+                StartCoroutine(ElementalRoutine(1));
+            }
+        }
+    }
+    
+    public void OnIce(InputAction.CallbackContext context)
+    {
+        //if(fireCooltime>0)
+        if(context.started && CheckCooldown("Ice")) {
+            animator.SetTrigger(AnimationStrings.iceAttack);
+            StartCoroutine(ElementalRoutine(2));
+        }
+    }
+
+    private WaitForSeconds elementalTimeWait = new WaitForSeconds(10);
+    private IEnumerator ElementalRoutine(int etype)
+    {
+        presentType = etype;
+        yield return elementalTimeWait;
+        presentType = 0;
+    }
+
     public void OnMove(InputAction.CallbackContext context) {
         moveInput = context.ReadValue<Vector2>(); // 방향키의 '값'을 읽어서 moveInput에 저장
         if(IsAlive) {
             IsMoving = moveInput != Vector2.zero;
             //Debug.Log("INPUT : "+moveInput);
-            if(!LockVelocity && CanMove)
-                SetFacingDirection(moveInput);  
         } else {
             IsMoving = false;
         }
@@ -171,7 +247,9 @@ public class PlayerController : MonoBehaviour, IController
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if(context.started && (touchingDirections.IsOnWall || touchingDirections.IsGrounded)) {
+        if(context.started && canJump)
+        {
+            canJump = false;
             animator.SetTrigger(AnimationStrings.jump);
             rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
         }
@@ -185,29 +263,30 @@ public class PlayerController : MonoBehaviour, IController
 
     public void OnAttackSpin(InputAction.CallbackContext context)
     {
-        if(context.started) {
+        if(context.started && CheckCooldown("Spin")) {
             animator.SetTrigger(AnimationStrings.spinAttack);
-            Debug.Log(AnimationStrings.spinAttack+" ON");
+            //Debug.Log(AnimationStrings.spinAttack+" ON");
             if (touchingDirections.IsGrounded)
             {
                 // Get the current position of the GameObject
                 Vector3 currentPosition = transform.position;
                 // Increase the y-axis value by 2
-                currentPosition.y += 2f;
+                currentPosition.y += 3f;
                 // Set the new position to the GameObject's Transform
                 transform.position = currentPosition;
             }
+            
             rb.gravityScale = 0f;
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity = new Vector2(rb.velocity.x * 2, 0);
             
         }
     }
 
     public void OnAttackUpper(InputAction.CallbackContext context)
     {
-        if(context.started) {
+        if(context.started && CheckCooldown("Upper")) {
             animator.SetTrigger(AnimationStrings.airborne);
-            Debug.Log(AnimationStrings.airborne+" ON");
+            //Debug.Log(AnimationStrings.airborne+" ON");
         }
     }
     
@@ -255,39 +334,54 @@ public class PlayerController : MonoBehaviour, IController
 
     public void OnDash(InputAction.CallbackContext context) {
         if(context.started) {
-            if(canDash)
+            if(CheckCooldown("Dash"))
                 StartCoroutine(Dash());
         }
     }
     
     private IEnumerator Dash()
     {
-        Collider2D dashattack = GetComponentsInChildren<Collider2D>()[4];
-        canDash = false;
+ 
         IsDashing = true;
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
-        dashattack.enabled = true;
         LockVelocity = true;
-
-        Debug.Log("Dash coroutine started");
-
-        //rb.velocity = new Vector2(transform.localScale.x * dashImpulse, 0f);
         rb.velocity = new Vector2( faceDirectionVector.x * dashImpulse, 0f);
-        tr.emitting = true;
-        //dust.Play();
         yield return new WaitForSeconds(dashingTime);
 
         LockVelocity = false;
-        Debug.Log("Dash End");
-        dashattack.enabled = false;
-        tr.emitting = false;
+        //Debug.Log("Dash End");
         rb.gravityScale = originalGravity;
         IsDashing = false;
-        yield return new WaitForSeconds(dashingCooldown);
-        canDash = true;
-        CanMove = true;
-        Debug.Log("Dash Cool End");
 
     }
+
+    private bool CheckCooldown(string attackName)
+    {
+        //Debug.Log(attackName + " cooldown : "+ cooldowns[attackName]);
+        bool res = cooldowns[attackName] <= 0;
+        if (res)
+        {
+            cooldowns[attackName] = coolTimes[attackName];
+            //Debug.Log(attackName + " coolTime : "+ cooldowns[attackName] + " added");
+        }
+        return res;
+    }
+
+    public bool CheckCoolTime(string skillName)
+    {
+        if (cooldowns.ContainsKey(skillName))
+        {
+            // If 'skillName' exists as a key in the 'coolDown' dictionary, check its value.
+            // If the value is less than or equal to 0, the skill is ready to use, so return true.
+            return cooldowns[skillName] <= 0f;
+        }
+        else
+        {
+            // If 'skillName' is not a key in the 'coolDown' dictionary, return true.
+            // You may choose to handle this case differently based on your game's logic.
+            return true;
+        }
+    }
+    
 }

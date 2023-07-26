@@ -21,12 +21,13 @@ internal class AnimationStrings {
 
   internal static string lockVelocity = "lockVelocity";
 
-  internal static string isDashing = "isDashing";
+  internal static string isDashing = "dashingTrigger";
   internal static string isRising = "isRising";
   internal static string isHanging = "isHanging";
   internal static string airborne = "upperAttackTrigger";
   internal static string spinAttack = "spinAttackTrigger";
 
   internal static string fireAttack = "fireAttackTrigger";
+  internal static string iceAttack = "iceAttackTrigger";
 
 }
