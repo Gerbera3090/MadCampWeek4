@@ -51,6 +51,32 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &-8911087847951492677
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: player_attack_fire
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 9021ac3887b031544aad32da647c06a9, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1109 &-8793386204068686387
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -1190,7 +1216,16 @@ AnimatorStateMachine:
     m_Position: {x: 570, y: -50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2947070430703607661}
-    m_Position: {x: 30, y: 200, z: 0}
+    m_Position: {x: 55, y: 65, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 2282990949901884749}
+    m_Position: {x: 30, y: 210, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 3706861957573216763}
+    m_Position: {x: 65, y: 275, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -8911087847951492677}
+    m_Position: {x: 100, y: 340, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 5598695763721543070}
@@ -1230,6 +1265,11 @@ AnimatorStateMachine:
   - first: {fileID: 2873081960208060197}
     second:
     - {fileID: 8232214992834913091}
+  - first: {fileID: 5598695763721543070}
+    second:
+    - {fileID: -8441280968922325098}
+    - {fileID: 7044658600087644261}
+    - {fileID: -8256711479614689768}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 570, y: 140, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
@@ -1534,8 +1574,8 @@ AnimatorStateMachine:
     m_State: {fileID: 2282990949901884749}
     m_Position: {x: 590, y: -50, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -8214108240066745135}
-    m_Position: {x: 600, y: -110, z: 0}
+    m_State: {fileID: 3548735389343207068}
+    m_Position: {x: 480, y: -110, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

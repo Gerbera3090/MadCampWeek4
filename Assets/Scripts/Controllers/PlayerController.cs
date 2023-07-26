@@ -107,10 +107,11 @@ public class PlayerController : MonoBehaviour, IController
         damageable = GetComponent<Damageable>();
         CanMove = true;
         tr = GetComponent<TrailRenderer>();
-        rb.gravityScale = BASIC_GRAVITY;
+
     }
     
     private void FixedUpdate() {
+
         if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -123,6 +124,9 @@ public class PlayerController : MonoBehaviour, IController
         if(!LockVelocity) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
         
         animator.SetBool(AnimationStrings.isHanging, touchingDirections.IsOnWall && !touchingDirections.IsGrounded);
+
+        if(CanMove) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+
         // if(!damageable.IsHit) {
         //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
         // }
@@ -271,5 +275,5 @@ public class PlayerController : MonoBehaviour, IController
         Debug.Log("Dash Cool End");
 
     }
-
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
 }
