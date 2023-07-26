@@ -5,12 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, IController
 {
-    public float walkspeed = 5f;
-    public float jumpImpulse = 10f;
+    public float walkspeed = 10f;
+    public float jumpImpulse = 20f;
     public float rollImpulse = 10f;
-
     public bool canDash = true;
-
+    
     private bool _isDashing = false;
     public bool IsDashing {
         get { return _isDashing; }
@@ -32,6 +31,8 @@ public class PlayerController : MonoBehaviour, IController
     Animator animator;
     TrailRenderer tr;
 
+    private float BASIC_GRAVITY = 5f;
+    
     public float CurrentSpeed {
         get {
             if (CanMove) {
@@ -79,7 +80,12 @@ public class PlayerController : MonoBehaviour, IController
 
     public bool IsAlive {
         get => animator.GetBool(AnimationStrings.isAlive);
-        set => animator.SetBool(AnimationStrings.isAlive, value);
+        set
+        {
+            animator.SetBool(AnimationStrings.isAlive, value); 
+            Debug.Log("Player Die");
+            Debug.Log("HP : " + damageable.Health);
+        }
     }
 
     private bool _lockVelocity = false;
@@ -100,16 +106,18 @@ public class PlayerController : MonoBehaviour, IController
         damageable = GetComponent<Damageable>();
         CanMove = true;
         tr = GetComponent<TrailRenderer>();
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
     }
     
     private void FixedUpdate() {
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
         if(CanMove) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+=======
         // if(!damageable.IsHit) {
         //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
         // }
-
-        if(!LockVelocity) {
-            rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+        if (!touchingDirections.IsGrounded){
+            animator.SetBool(AnimationStrings.isRising, rb.velocity.y > 0);
         }
     }
 
@@ -134,7 +142,7 @@ public class PlayerController : MonoBehaviour, IController
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if(context.started && touchingDirections.IsGrounded) {
+        if(context.started && (touchingDirections.IsOnWall || touchingDirections.IsGrounded)) {
             animator.SetTrigger(AnimationStrings.jump);
             rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
         }
@@ -142,7 +150,10 @@ public class PlayerController : MonoBehaviour, IController
 
     public void OnAttack(InputAction.CallbackContext context) {
         if(context.started) {
+<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
             //Debug.Log("attack input");
+=======
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
             animator.SetTrigger(AnimationStrings.attack);
         }
     }
@@ -168,24 +179,41 @@ public class PlayerController : MonoBehaviour, IController
 
 
     public void OnRoll(InputAction.CallbackContext context) {
-        if(context.started && touchingDirections.IsGrounded) {
+        if(context.started && touchingDirections.IsGrounded && rollingCount <= 0) {
             animator.SetTrigger(AnimationStrings.roll);
             rb.velocity = new Vector2(faceDirectionVector.x * rollImpulse, rb.velocity.y);
+            StartCoroutine(Rolling());
+        }
+    }
+    private int rollingCount = 0;
+    private WaitForSeconds rollWait = new WaitForSeconds(0.5f);
+    private IEnumerator Rolling()
+    {
+        rollingCount++;
+        LockVelocity = true;
+        yield return rollWait;
+        rollingCount--;
+        if (rollingCount <= 0)
+        {
+            LockVelocity = false;
         }
     }
 
     public void OnDash(InputAction.CallbackContext context) {
         if(context.started) {
-            StartCoroutine(Dash());
+            if(canDash)
+                StartCoroutine(Dash());
         }
     }
-
-    private IEnumerator Dash() {
+    
+    private IEnumerator Dash()
+    {
+        Collider2D dashattack = GetComponentsInChildren<Collider2D>()[4];
         canDash = false;
         IsDashing = true;
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
-
+        dashattack.enabled = true;
         LockVelocity = true;
 
         Debug.Log("Dash coroutine started");
@@ -197,10 +225,14 @@ public class PlayerController : MonoBehaviour, IController
 
         LockVelocity = false;
 
+
+        dashattack.enabled = false;
         tr.emitting = false;
         rb.gravityScale = originalGravity;
         IsDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+        
     }
+>>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
 }

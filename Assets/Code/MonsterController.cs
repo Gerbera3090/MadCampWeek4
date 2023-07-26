@@ -22,6 +22,7 @@ public class MonsterController : MonoBehaviour
     SpriteRenderer spriter;
     
     private bool isBasicMoving;
+    
 
     private bool printLog = false;
     public void Awake()
@@ -121,7 +122,9 @@ public class MonsterController : MonoBehaviour
     {
         isLive = false;
         gameObject.SetActive(false);
+
     }
+
     
 }
 
