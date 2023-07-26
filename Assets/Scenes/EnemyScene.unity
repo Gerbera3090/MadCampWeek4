@@ -889,6 +889,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee67b8397078a3f4fa28dd9230a98a04, type: 3}
+--- !u!1 &739606653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 508854132398846852, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+  m_PrefabInstance: {fileID: 778694372}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &755840377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1036,8 +1041,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 998341625902753308, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: attackType
+      value: Physical
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813345351114971880, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: _health
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4813345351114971880, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
       propertyPath: isPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813345351114971880, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: _maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277914967193740813, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: df33d7499a7f5ee4d9594f0ef8027d3e, type: 2}
+    - target: {fileID: 6320255569702121703, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6320255569702121703, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6320255569702121703, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6581504418831463563, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
@@ -1088,6 +1121,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Attack
       objectReference: {fileID: 0}
+    - target: {fileID: 8101233395710761091, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
+      propertyPath: attackType
+      value: Fire
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1103,6 +1140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 863220197}
   - component: {fileID: 863220198}
+  - component: {fileID: 863220199}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -1182,6 +1220,22 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &863220199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863220196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c592c4ba1eb174697299bd137f9f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  playerObject: {fileID: 739606653}
+  leftSlider: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &890177268
 GameObject:
   m_ObjectHideFlags: 0
@@ -17211,6 +17265,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 692247443122967269, guid: f7f6f9354d4ba204ab9c12b23da8c559, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692247443122967269, guid: f7f6f9354d4ba204ab9c12b23da8c559, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692247443122967269, guid: f7f6f9354d4ba204ab9c12b23da8c559, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5052305762496313967, guid: f7f6f9354d4ba204ab9c12b23da8c559, type: 3}
       propertyPath: spawnPoint
       value: 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4765278444415645240}
   - component: {fileID: 6302183206018418944}
   - component: {fileID: 548358511301559892}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: CliffDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4017069707575737939}
   - component: {fileID: 8731370599746594268}
   - component: {fileID: 8009423110024661255}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: FrontPlayerFollowZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 4035435261021874126}
   - component: {fileID: 2188911385589715713}
   - component: {fileID: 5704633232126326747}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: HitboxDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,6 +566,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a74cc3c41a3114ca29578fe95317ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeDuration: 0.2
+  shakeIntensity: 0.2
   damageableHit:
     m_PersistentCalls:
       m_Calls:
@@ -583,6 +585,7 @@ MonoBehaviour:
         m_CallState: 2
   isPlayer: 0
   _maxHealth: 100
+  BURNDAMAGE: 10
   _health: 100
   _isAlive: 1
   isInvincible: 0
@@ -599,7 +602,7 @@ GameObject:
   - component: {fileID: 8525069896752533399}
   - component: {fileID: 4176011770245572590}
   - component: {fileID: 7927999342859508880}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Attack
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -754,7 +757,7 @@ GameObject:
   - component: {fileID: 8418724005736081850}
   - component: {fileID: 515307031481919153}
   - component: {fileID: 452483715137826941}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BackPlayerFollowZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -19,8 +19,8 @@ TagManager:
   - Enemy
   - PlayerHitBox
   - EnemyHitBox
-  - 
-  - 
+  - DetectZone
+  - Attack
   - 
   - 
   - 

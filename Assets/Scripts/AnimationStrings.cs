@@ -26,4 +26,7 @@ internal class AnimationStrings {
   internal static string isHanging = "isHanging";
   internal static string airborne = "upperAttackTrigger";
   internal static string spinAttack = "spinAttackTrigger";
+
+  internal static string fireAttack = "fireAttackTrigger";
+
 }
