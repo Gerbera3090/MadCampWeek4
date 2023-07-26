@@ -16,13 +16,13 @@ public class SkeletonController : MonoBehaviour, IController
     private AttackZone frontPlayerDetect;
     private AttackZone backPlayerDetect;
     private bool isAttacking = false;
-    
+
     public float walkStopRate = 0.6f;
 
     public float CurrentSpeed {
-        get { return walkspeed; }
+        get { return walkspeed * ( damageable.iceCount > 0 ? 0.5f : 1 ) ; }
     }
-
+    
     public enum WalkableDirection {Right, Left};
 
     private WalkableDirection _walkDirection = WalkableDirection.Right;
@@ -177,7 +177,8 @@ public class SkeletonController : MonoBehaviour, IController
         damageable.Health = damageable.MaxHealth;
         animator.SetBool(AnimationStrings.isMoving, true);
         animator.SetBool(AnimationStrings.isAlive, true);
-        
+        IsAlive = true;
+        damageable.IsAlive = true;
     }
     
 }

@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, IController
-{
+{    
+    
     public float walkspeed = 10f;
     public float jumpImpulse = 20f;
     public float rollImpulse = 10f;
     public bool canDash = true;
-    
+
     private bool _isDashing = false;
     public bool IsDashing {
         get { return _isDashing; }
@@ -112,21 +113,27 @@ public class PlayerController : MonoBehaviour, IController
     
     private void FixedUpdate() {
 
-        if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
+
+        if (!LockVelocity)
+        {
+            if (touchingDirections.IsOnWall && !touchingDirections.IsGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.gravityScale = 0f;
+            }
+            else
+            {
+                if(CanMove)rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
+                rb.gravityScale = BASIC_GRAVITY;
+            }
+        }
+        else
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.gravityScale = 0f;
         }
-        else if(!LockVelocity)
-        {
-            rb.gravityScale = BASIC_GRAVITY;
-        }
-        if(!LockVelocity) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
-        
         animator.SetBool(AnimationStrings.isHanging, touchingDirections.IsOnWall && !touchingDirections.IsGrounded);
-
-        if(CanMove) rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y);
-
+        
         // if(!damageable.IsHit) {
         //     rb.velocity = new Vector2(moveInput.x * CurrentSpeed, rb.velocity.y); // 안맞으면 moveInput 대로 캐릭터가 이동
         // }
@@ -135,13 +142,20 @@ public class PlayerController : MonoBehaviour, IController
         }
     }
 
-
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        //if(fireCooltime>0)
+        if(context.started) {
+            animator.SetTrigger(AnimationStrings.fireAttack);
+        }
+    }
+    
     public void OnMove(InputAction.CallbackContext context) {
         moveInput = context.ReadValue<Vector2>(); // 방향키의 '값'을 읽어서 moveInput에 저장
         if(IsAlive) {
             IsMoving = moveInput != Vector2.zero;
             //Debug.Log("INPUT : "+moveInput);
-            if(!LockVelocity)
+            if(!LockVelocity && CanMove)
                 SetFacingDirection(moveInput);  
         } else {
             IsMoving = false;
@@ -212,9 +226,9 @@ public class PlayerController : MonoBehaviour, IController
 
     public IEnumerator KnockTimeRoutine(float knockTime)
     {
-        CanMove = false;
+        //CanMove = false;
         yield return new WaitForSeconds(knockTime);
-        CanMove = true;
+        //CanMove = true;
     }
 
 
@@ -258,7 +272,8 @@ public class PlayerController : MonoBehaviour, IController
 
         Debug.Log("Dash coroutine started");
 
-        rb.velocity = new Vector2(transform.localScale.x * dashImpulse, 0f);
+        //rb.velocity = new Vector2(transform.localScale.x * dashImpulse, 0f);
+        rb.velocity = new Vector2( faceDirectionVector.x * dashImpulse, 0f);
         tr.emitting = true;
         //dust.Play();
         yield return new WaitForSeconds(dashingTime);
@@ -275,5 +290,4 @@ public class PlayerController : MonoBehaviour, IController
         Debug.Log("Dash Cool End");
 
     }
->>>>>>> d2ee7c1c964d521b49175bbd7eac05c1e685ff80:Assets/Scripts/Controllers/PlayerController.cs
 }
