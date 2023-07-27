@@ -1123,11 +1123,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!198 &282714461 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 827300533660741311, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
-  m_PrefabInstance: {fileID: 916541260999126874}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &413680009
 GameObject:
   m_ObjectHideFlags: 3
@@ -2157,7 +2152,7 @@ PrefabInstance:
     - target: {fileID: 7459844786181619156, guid: 66846a10503c9b2459d356e73317bf2d, type: 3}
       propertyPath: dust
       value: 
-      objectReference: {fileID: 282714461}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
