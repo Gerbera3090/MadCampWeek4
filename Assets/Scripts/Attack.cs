@@ -5,14 +5,21 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    public int attackDamage = 10;
+    public float attackDamage = 10;
     public bool isPlayer = true;
     public Vector2 knockBack = new Vector2(2f,5f);
     public float knockTime = 1f;
     
     public string attackType = "Physical";
     public PlayerController pc;
-
+    public Damageable dmgb;
+    public float AttackDamage
+    {
+        get
+        {
+            return attackDamage * (1 + 0.5f * dmgb.Level);
+        }
+    }
     public string AttackType
     {
         get { return isPlayer ? (attackType == "Physical" ? pc.AttackType : attackType) : attackType; }
@@ -21,6 +28,7 @@ public class Attack : MonoBehaviour
     private void Awake()
     {
         if (isPlayer) pc = GetComponentInParent<PlayerController>();
+        dmgb = GetComponentInParent<Damageable>();
     }
 
     private void FixedUpdate()

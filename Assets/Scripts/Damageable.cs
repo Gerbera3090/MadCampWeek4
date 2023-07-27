@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,7 +15,8 @@ public class Damageable : MonoBehaviour
     public bool isPlayer;
     Animator animator;
     private IController controller;
-    [SerializeField]
+    [SerializeField] 
+    public float BASIC_HEALTH = 100f; 
     private float _maxHealth = 100f;
     
     private SpriteRenderer sprite;
@@ -24,11 +26,24 @@ public class Damageable : MonoBehaviour
     private float burnTimer = 0;
     public int iceCount = 0;
 
+    private int _level = 0;
+    public int Level
+    {
+        get { return _level; }
+        set
+        {
+            MaxHealth = BASIC_HEALTH * (1 + 0.5f * value);
+            _level = value;
+        }
+    }
+    
     public float MaxHealth {
         get { return _maxHealth;}
         private set
         {
+            float diff = Mathf.Max(_maxHealth - Health, 0);
             _maxHealth = value;
+            Health = _maxHealth - diff;
         }
     }
     
@@ -86,7 +101,7 @@ public class Damageable : MonoBehaviour
             sprite.color = new Color(1f, 0.4f, 0.4f);
             if (burnTimer > 1f)
             {
-                Health -= BURNDAMAGE;
+                Health -= BURNDAMAGE * (1 + 0.5f*Level);
                 burnTimer = 0;
                 animator.SetTrigger(AnimationStrings.hitTrigger);
             }
@@ -117,7 +132,7 @@ public class Damageable : MonoBehaviour
         var attack = other.gameObject.GetComponent<Attack>();
         //Debug.Log(isPlayer == attack.isPlayer);
         if (isPlayer == attack.isPlayer) return;
-        float damage = attack.attackDamage;
+        float damage = attack.AttackDamage;
         string attackType = attack.AttackType;
         // attackType에 따라서 데미지 계산
         switch (attackType)
@@ -145,8 +160,8 @@ public class Damageable : MonoBehaviour
             StartCoroutine(ShakeEffect());
         }
         
-        //Debug.Log(tp + " received damage of : "+ damage);
-        //Debug.Log(tp + " Remained HP : " + Health);
+        // Debug.Log(tp + " received damage of : "+ damage);
+        // Debug.Log(tp + " Remained HP : " + Health);
     }
     
     private IEnumerator ShakeEffect()

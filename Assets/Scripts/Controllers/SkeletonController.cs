@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SkeletonController : MonoBehaviour, IController
 {
+    public float basicExpDrop = 10f;
     public float walkspeed = 3f;
     public GameObject spawnPoint;
     Rigidbody2D rb;
@@ -16,9 +17,7 @@ public class SkeletonController : MonoBehaviour, IController
     private AttackZone frontPlayerDetect;
     private AttackZone backPlayerDetect;
     private bool isAttacking = false;
-
     public bool canRespawn = true;
-    
     public float walkStopRate = 0.6f;
 
     public float CurrentSpeed {
@@ -145,6 +144,11 @@ public class SkeletonController : MonoBehaviour, IController
         } 
     }
 
+    private float ExpDrop
+    {
+        get { return basicExpDrop * (1 + 0.5f * damageable.Level); }
+    }
+    
     public void Dead()
     {
         //gameObject.SetActive(false);
@@ -153,6 +157,7 @@ public class SkeletonController : MonoBehaviour, IController
         rb.simulated = false;
         if (canRespawn)
         {
+            GameManager.instance.PlayerExp += ExpDrop;
             if(spawnPoint==null)
                 Debug.Log("Please Set the SpawnPoint in the Inspector!");
             else
