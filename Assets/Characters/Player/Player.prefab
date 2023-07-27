@@ -381,6 +381,7 @@ Transform:
   - {fileID: 6280702784888757809}
   - {fileID: 7081661458732740402}
   - {fileID: 8984127569569943442}
+  - {fileID: 6339011448059166600}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6320255569702121703
@@ -817,7 +818,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeIntensity: 0.2
   isPlayer: 0
-  _maxHealth: 100
+  BASIC_HEALTH: 100
   BURNDAMAGE: 10
   iceCount: 0
   _health: 100
@@ -1051,6 +1052,7 @@ MonoBehaviour:
   knockTime: 1
   attackType: Fire
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!61 &3755609757616192313
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1180,6 +1182,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2185394093322324899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6339011448059166600}
+  m_Layer: 0
+  m_Name: CameraFollowPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6339011448059166600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2185394093322324899}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.51, y: 5.03, z: 0.19022918}
+  m_LocalScale: {x: 1, y: 1, z: 1.1647137}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6581504418831463563}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2578262079194311667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,6 +1600,7 @@ MonoBehaviour:
   knockTime: 1
   attackType: Physical
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!61 &2744431560859424415
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1713,6 +1747,7 @@ MonoBehaviour:
   knockTime: 1
   attackType: Physical
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!1 &5513965458371969581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,6 +1967,7 @@ MonoBehaviour:
   knockTime: 100
   attackType: Physical
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!61 &4376312818185128228
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2157,6 +2193,7 @@ MonoBehaviour:
   knockTime: 1
   attackType: Ice
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!1 &6700062826989633788
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,6 +2305,7 @@ MonoBehaviour:
   knockTime: 1
   attackType: Physical
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!1 &6820945050505755177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2441,7 @@ MonoBehaviour:
   knockTime: 1
   attackType: Physical
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!58 &8800782541779652333
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3084,6 +3123,7 @@ MonoBehaviour:
   knockTime: 1
   attackType: Physical
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!61 &6937176199330923896
 BoxCollider2D:
   m_ObjectHideFlags: 0
