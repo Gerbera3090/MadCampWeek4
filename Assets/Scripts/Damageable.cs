@@ -96,6 +96,8 @@ public class Damageable : MonoBehaviour
             timeSinceHit += Time.deltaTime;
         }
 
+        if (!IsAlive) return;
+        
         if (burnCount > 0)
         {
             sprite.color = new Color(1f, 0.4f, 0.4f);

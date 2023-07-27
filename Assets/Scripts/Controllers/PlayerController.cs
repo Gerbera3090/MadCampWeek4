@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IController
 {    
@@ -295,6 +296,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         //게임 오버 화면 넘어가기
         gameObject.SetActive(false);
+        SceneManager.LoadScene("DiedScene");
     }
 
     public void CallKnockBack(Vector2 knockBackForceVector, float knockTime)

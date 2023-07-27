@@ -158,6 +158,8 @@ public class SkeletonController : MonoBehaviour, IController
         if (canRespawn)
         {
             GameManager.instance.PlayerExp += ExpDrop;
+            GameManager.instance.playerKills += 1;
+            GameManager.instance.playerPoints += ExpDrop;
             if(spawnPoint==null)
                 Debug.Log("Please Set the SpawnPoint in the Inspector!");
             else

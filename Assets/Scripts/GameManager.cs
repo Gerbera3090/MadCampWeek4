@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject player;
-    public PoolManager pool;
     public Damageable playerDamageable;
     public PlayerController playerController;
-    public Spawner spawner;
     public int monsterLevel = 0;
+    public int playerKills = 0;
+    public float playerPoints = 0;
+    public float playTime = 0;
     void Awake()
     {
         // Check if an instance of GameManager already exists
@@ -36,7 +38,8 @@ public class GameManager : MonoBehaviour
     }
 
     private float BASIC_EXP = 100f;
-    public float NeededExp { get { return BASIC_EXP * Mathf.Pow(1.3f, PlayerLevel) ; } // 지수 함수로 증가
+    public float NeededExp { 
+        get { return BASIC_EXP * Mathf.Pow(1.3f, PlayerLevel) ; } // 지수 함수로 증가
     }
 
     private float _playerExp = 0f;
@@ -45,8 +48,8 @@ public class GameManager : MonoBehaviour
         get { return _playerExp; }
         set
         {   
-            Debug.Log(value);
-            if (value > NeededExp)
+            //Debug.Log(value);
+            if (value >= NeededExp)
             {
                 _playerExp = 0;
                 PlayerLevel += 1;
@@ -56,5 +59,10 @@ public class GameManager : MonoBehaviour
                 _playerExp = value;
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        playTime += Time.deltaTime;
     }
 }

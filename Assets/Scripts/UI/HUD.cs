@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public enum InfoType { HP, EXP, Level }
+    public enum InfoType { HP, EXP, Level, Kill, Point, PlayTime }
     public InfoType type;
 
     public GameObject playerObject;//여기해ㅑㅇ함
@@ -38,6 +38,19 @@ public class HUD : MonoBehaviour
                 break;
             case InfoType.Level: 
                 myText.text = string.Format("Lv.{0:F0}", GameManager.instance.PlayerLevel + 1);
+                break; 
+                //Kill, Point, PlayeTime
+            case InfoType.Kill: 
+                myText.text = string.Format("{0:F0} Kill", GameManager.instance.playerKills);
+                break;
+            case InfoType.Point: 
+                myText.text = string.Format("{0:F0} P", GameManager.instance.playerPoints);
+                break; 
+            case InfoType.PlayTime: 
+                float remainTime = GameManager.instance.playTime;
+                int min = Mathf.FloorToInt(remainTime/60);
+                int sec = Mathf.FloorToInt(remainTime%60);
+                myText.text = string.Format("{0:D2}:{1:D2}", min, sec);
                 break;
         }
     }
