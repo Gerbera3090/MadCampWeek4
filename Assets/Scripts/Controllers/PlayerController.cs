@@ -265,6 +265,7 @@ public class PlayerController : MonoBehaviour, IController
     {
         if(context.started && CheckCooldown("Spin")) {
             animator.SetTrigger(AnimationStrings.spinAttack);
+            CinemachineShake.Instance.ShakeCamera(15f, .6f); // 카메라 쉐이크
             //Debug.Log(AnimationStrings.spinAttack+" ON");
             if (touchingDirections.IsGrounded)
             {
