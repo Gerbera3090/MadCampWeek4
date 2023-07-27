@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -103,8 +104,16 @@ public class SkeletonController : MonoBehaviour, IController
         cliffDetect = GetComponentsInChildren<AttackZone>()[1];
         frontPlayerDetect = GetComponentsInChildren<AttackZone>()[2];
         backPlayerDetect = GetComponentsInChildren<AttackZone>()[3];
-        Debug.Log(frontPlayerDetect.detectTag);
-        Debug.Log(backPlayerDetect.detectTag);
+        //Debug.Log(frontPlayerDetect.detectTag);
+        //Debug.Log(backPlayerDetect.detectTag);
+
+    }
+
+    private void OnEnable()
+    {
+        spriteRenderer.enabled = true;
+        rb.simulated = true;
+        IsAlive = true;
 
     }
 
@@ -155,13 +164,15 @@ public class SkeletonController : MonoBehaviour, IController
         IsAlive = false;
         spriteRenderer.enabled = false;
         rb.simulated = false;
+        GameManager.instance.PlayerExp += ExpDrop;
+        GameManager.instance.playerKills += 1;
+        GameManager.instance.playerScore += ExpDrop;
+        gameObject.SetActive(false);
         if (canRespawn)
         {
-            GameManager.instance.PlayerExp += ExpDrop;
-            GameManager.instance.playerKills += 1;
-            GameManager.instance.playerPoints += ExpDrop;
-            if(spawnPoint==null)
-                Debug.Log("Please Set the SpawnPoint in the Inspector!");
+            if(spawnPoint==null){
+                //Debug.Log("Please Set the SpawnPoint in the Inspector!");
+            }
             else
             {
                 StartCoroutine(RespawnRoutine());

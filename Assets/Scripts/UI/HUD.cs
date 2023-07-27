@@ -44,7 +44,7 @@ public class HUD : MonoBehaviour
                 myText.text = string.Format("{0:F0} Kill", GameManager.instance.playerKills);
                 break;
             case InfoType.Point: 
-                myText.text = string.Format("{0:F0} P", GameManager.instance.playerPoints);
+                myText.text = string.Format("{0:F0} P", GameManager.instance.playerScore);
                 break; 
             case InfoType.PlayTime: 
                 float remainTime = GameManager.instance.playTime;

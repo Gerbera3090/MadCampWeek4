@@ -445,9 +445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc6b94dc559cba47ac5fadef6f68e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkspeed: 3
+  basicExpDrop: 10
+  walkspeed: 10
   spawnPoint: {fileID: 0}
-  canRespawn: 1
+  canRespawn: 0
   walkStopRate: 0.6
 --- !u!114 &1060291697080404276
 MonoBehaviour:
@@ -496,10 +497,10 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeIntensity: 0.2
   isPlayer: 0
-  _maxHealth: 30
+  BASIC_HEALTH: 50
   BURNDAMAGE: 10
   iceCount: 0
-  _health: 30
+  _health: 50
   _isAlive: 1
   isInvincible: 0
   invincibilityTime: 0.25
@@ -629,6 +630,7 @@ MonoBehaviour:
   knockTime: 10
   attackType: Physical
   pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!1 &8987023885861566988
 GameObject:
   m_ObjectHideFlags: 0

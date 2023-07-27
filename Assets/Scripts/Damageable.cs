@@ -34,6 +34,7 @@ public class Damageable : MonoBehaviour
         {
             MaxHealth = BASIC_HEALTH * (1 + 0.5f * value);
             _level = value;
+            Health = MaxHealth;
         }
     }
     
@@ -68,7 +69,7 @@ public class Damageable : MonoBehaviour
         get { return _isAlive;}
         set { 
             _isAlive = value; 
-            animator.SetBool(AnimationStrings.isAlive, _isAlive);
+            if(animator!=null)animator.SetBool(AnimationStrings.isAlive, _isAlive);
         }
     }
 
@@ -84,6 +85,12 @@ public class Damageable : MonoBehaviour
         animator = GetComponent<Animator>();
         controller = GetComponent<IController>();
         sprite = GetComponent<SpriteRenderer>();
+        IsAlive = true;
+    }
+
+    private void OnEnable()
+    {
+        IsAlive = true;
     }
 
     // update every frame

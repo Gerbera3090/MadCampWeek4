@@ -519,8 +519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc6b94dc559cba47ac5fadef6f68e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkspeed: 3
+  basicExpDrop: 5
+  walkspeed: 7
   spawnPoint: {fileID: 0}
+  canRespawn: 1
   walkStopRate: 0.6
 --- !u!114 &1060291697080404276
 MonoBehaviour:
@@ -568,25 +570,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.2
   shakeIntensity: 0.2
-  damageableHit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5052305762496313967}
-        m_TargetAssemblyTypeName: SkeletonController, Assembly-CSharp
-        m_MethodName: OnHit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   isPlayer: 0
-  _maxHealth: 100
+  BASIC_HEALTH: 30
   BURNDAMAGE: 10
-  _health: 100
+  iceCount: 0
+  _health: 30
   _isAlive: 1
   isInvincible: 0
   invincibilityTime: 0.25
@@ -693,6 +681,8 @@ MonoBehaviour:
   knockBack: {x: 2, y: 5}
   knockTime: 10
   attackType: Physical
+  pc: {fileID: 0}
+  dmgb: {fileID: 0}
 --- !u!212 &7927999342859508880
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameType {Story, Challenge, Free}
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -11,8 +12,22 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
     public int monsterLevel = 0;
     public int playerKills = 0;
-    public float playerPoints = 0;
+    public float playerScore = 0;
     public float playTime = 0;
+
+    public bool IsAlive
+    {
+        get
+        {
+            return (player != null) && playerDamageable.IsAlive;
+        }
+        set
+        {
+            if(player != null) playerDamageable.IsAlive = value;
+        }
+    }
+    
+    public GameType gameType = GameType.Story;
     void Awake()
     {
         // Check if an instance of GameManager already exists
@@ -63,6 +78,6 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playTime += Time.deltaTime;
+        if(IsAlive)playTime += Time.deltaTime;
     }
 }
