@@ -54,16 +54,16 @@ public class PlayerController : MonoBehaviour, IController
         { "Dash", 2f },
         {"Potion", 5f}
     };
-    
-    
-    public string AttackType
+
+    public Dictionary<string, bool> canUseElemental = new Dictionary<string, bool>
     {
-        get
-        {
-            return attackTypes[presentType];
-        }
-    }
-    
+        { "Fire", false },
+        { "Ice", false }
+    };
+
+
+    public string AttackType => attackTypes[presentType];
+
     public float CurrentSpeed {
         get {
             if (CanMove) {
@@ -359,7 +359,9 @@ public class PlayerController : MonoBehaviour, IController
     private bool CheckCooldown(string attackName)
     {
         //Debug.Log(attackName + " cooldown : "+ cooldowns[attackName]);
-        bool res = cooldowns[attackName] <= 0;
+        bool res ;
+        if (canUseElemental.ContainsKey(attackName) && !canUseElemental[attackName]) return false;
+        res = cooldowns[attackName] <= 0;
         if (res)
         {
             cooldowns[attackName] = coolTimes[attackName];
@@ -372,9 +374,9 @@ public class PlayerController : MonoBehaviour, IController
     {
         if (cooldowns.ContainsKey(skillName))
         {
-            // If 'skillName' exists as a key in the 'coolDown' dictionary, check its value.
-            // If the value is less than or equal to 0, the skill is ready to use, so return true.
+            if (canUseElemental.ContainsKey(skillName) && !canUseElemental[skillName]) return false;
             return cooldowns[skillName] <= 0f;
+            
         }
         else
         {
