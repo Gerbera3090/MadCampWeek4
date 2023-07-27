@@ -7,6 +7,8 @@ public class Finish : MonoBehaviour
 {
     private bool stageCompleted = false;
 
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class Finish : MonoBehaviour
     }
 
     private void CompleteStage() {
+        audioSource.Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
